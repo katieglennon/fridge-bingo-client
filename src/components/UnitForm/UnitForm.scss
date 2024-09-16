@@ -1,0 +1,36 @@
+@use "../../styles/partials/breakpoints" as *;
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/typography";
+@use "../../styles/partials/colors" as *;
+
+main {
+  @include container-spacing;
+}
+
+.unit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  &__label {
+    margin: 0;
+    width: 100%;
+  }
+
+  &__input {
+    display: block;
+    margin-top: 0.5rem;
+    width: 100%;
+    font-family: "VAG rounded";
+    color: $background-dark;
+    padding: 0.25rem;
+    border-radius: 12px;
+    border: 1px solid $background-dark;
+    text-indent: 0.25rem;
+    height: 1.6rem;
+  }
+
+  &__radio-option {
+    margin-top: 0.5rem;
+  }
+}
