@@ -36,8 +36,6 @@ In a busy world of convenience and cost saving having a simple tool to help util
 
 ### Tech Stack
 
-List technologies that will be used in your app, including any libraries to save time or provide more functionality. Be sure to research any potential limitations.
-
 - React
 - JavaScript
 - mySQL
@@ -49,10 +47,6 @@ List technologies that will be used in your app, including any libraries to save
 - Server libraries:
   - knex
   - express
-
-### APIs
-
-ChefGPT (https://api.chefgpt.xyz/)
 
 ### Sitemap
 
@@ -74,49 +68,37 @@ ChefGPT (https://api.chefgpt.xyz/)
 
 ### Mockups
 
-Provide visuals of your app's screens. You can use pictures of hand-drawn sketches, or wireframing tools like Figma.
-https://excalidraw.com/
+#### Dashboard
+
+![alt text](dashboard.png)
+
+#### Inventory overview
+
+![alt text](inventory.png)
+
+#### Add ingredient
+
+![alt text](add-ingredient.png)
+
+#### Generate recipe
+
+![alt text](recipe-generator.png)
+
+#### Recipe details
+
+![alt text](recipe.png)
+
+#### Saved recipes
+
+![alt text](saved-recipes.png)
 
 ### Data
 
-![] (fridge-bingo-database-diagram.png)
+![alt text](database-diagram.png)
 
-### Endpoints
+### APIs
 
-**POST /users/register**
-
-- Add a user account
-
-Parameters:
-
-- email: User's email
-- password: User's provided password
-
-Response:
-
-```
-{
-    "token": "seyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6I..."
-}
-```
-
-**POST /users/login**
-
-- Login a user
-
-Parameters:
-
-- email: User's email
-- password: User's provided password
-
-Response:
-
-```
-{
-    "token": "seyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6I..."
-}
-```
-
+ChefGPT (https://api.chefgpt.xyz/)
 **POST /api/generate/recipe-from-ingredients**
 
 - Generates recipe suggestions based on the user's available ingredients. Using ChefGPT 'recipe-from-ingredients' endpoint or their widget. In the same function save the recipe to my db.
@@ -164,6 +146,8 @@ Response:
 }
 ```
 
+### Endpoints
+
 **GET /api/recipes/saved**
 
 - Fetches a list of recipes the user has saved.
@@ -175,6 +159,18 @@ Parameters:
 Response:
 
 ```
+{
+    [
+     {
+        "user_id": "1234",
+        "recipe_id": "1213",
+        "recipe_name": "Chicken and Rice"
+        "rating": 4.5,
+        "user_comments": "Great dish, will try again!"
+        "is_saved": "true"
+     }
+    ]
+}
 
 ```
 
@@ -192,6 +188,12 @@ Parameters:
 Response:
 
 ```
+{
+  "user_id": "1234",
+  "recipe_id": "1213",
+  "rating": 4.5,
+  "comments": "Great dish, will try again!"
+}
 
 ```
 
@@ -203,6 +205,14 @@ Parameters:
 
 - user_id
 - image
+
+```
+{
+  "user_id": "1234",
+  "inventory_id": "1",
+  "image_url": ...
+}
+```
 
 **GET /api/fridge/inventory**
 
@@ -216,9 +226,7 @@ Response
 
 ```
 {
- "inventory": [
    { "ingredient": "", "quantity": "", "expiration": "" }
- ]
 }
 ```
 
@@ -234,66 +242,87 @@ Parameters:
 Response
 
 ```
-
+{
+  { "ingredient": "", "quantity": "", "expiration": "" }
+}
 ```
 
-DELETE inventory item
-PATCH/PUT inventory item
+**PATCH/PUT /api/fridge/inventory**
 
-List endpoints that your server will implement, including HTTP methods, parameters, and example responses.
+- Updates ingredients in the fridge/cupboard inventory.
+
+Parameters:
+
+- user_id
+- inventory_stock_id
+
+Response
+
+```
+{
+  { "ingredient": "", "quantity": "", "expiration": "" }
+}
+```
+
+**DELETE /api/fridge/inventory**
+
+- Deletes an ingredient from the inventory (e.g. if added in error)
+
+Parameters:
+
+- user_id
+- inventory_stock_id
+
+Response (empty) with 204 status code
 
 ## Roadmap
 
-Scope your project as a sprint. Break down the tasks that will need to be completed and map out timeframes for implementation working back from the capstone due date.
+- Create client
+- Create server
+- Create database
+- Experiment with ChefGPT API, gather example recipes
+- Feature: Add ingredient
+  - Create POST /inventory endpoint
+  - Implement post ingredient form including validation
+- Feature: Inventory
+  - Create GET /inventory endpoint
+  - Implement view inventory page
+- Feature: Edit/delete ingredients
+  - Create PUT/PATCH/DELETE /inventory endpoint
+- Feature: Recipe generator
+  - Create form to build meal
+  - Send request to ChefGPT API
+- Feature: Recipe step by step
+  - Implement view recipe page
+- Feature: Saved recipes
+  - Create GET /recipes endpoint
+  - Implement view saved recipes page
+- Feature: Rate recipe
+  - Create POST /recipe endpoint to add rating
 
 ---
 
 ## Future Implementations
 
-Your project will be marked based on what you committed to in the above document. Here, you can list any additional features you may complete after the MVP of your application is built, or if you have extra time before the Capstone due date.
+- User login
 
-'Shelfie' v2:
-scanning of ingredients including expiration dates.
-notifications for ingredients going out of date?
-categorisation
+  - This will be hardcoded initially so future work to add a user account and login a user.
 
-processes it to identify ingredients (could integrate image recognition technology in the future).
+- Expiration Alerts
 
-. Expiration Alerts
-Description: A notification page that shows ingredients that are about to expire, encouraging users to use them before they go to waste.
+  - A notification pag e that shows ingredients that are about to expire, encouraging users to use them before they go to waste.
 
-Reminders for ingredients nearing expiration to help users stay on top of her groceries.
+- Leftover Reinvention
 
-Leftover Reinvention
+  - Input cooked food leftovers and get suggestions for how to transform it into a new dish, to avoid eating the same meal twice.
 
-- As a user with leftovers, I want to input my cooked food and get suggestions for how to transform it into a new dish, so that I can avoid eating the same meal twice.
+- Food Waste Tracking and Statistics
 
-Food Waste Tracking and Statistics
-As a sustainability-conscious user, I want to track how much food waste I’ve avoided by using my fridge ingredients, so that I can measure my environmental impact.
-The app logs how often the user utilizes expiring ingredients. Monthly reports show how much food waste the user has avoided. User can set goals to reduce food waste, with achievements and badges for milestones.
+  - Track how much food waste that's avoided being wasted by using fridge ingredients to measure my environmental impact.
 
-reject redo the recipe
+- 'Shelfie' v2:
 
----
+  - Scanning of ingredients including expiration dates.
 
-NOTES
-
-1. rather than builidng authentication system, assume there is only 1 user who is already logged in (potentch add users at the end)
-2. rolling own auth (creating own JWT token)
-3. integrate with 3rd party auth service (e.g. firebase)
-
-color pallet
-https://www.realtimecolors.com/?colors=1b0c1a-f9f2f8-b24fa5-d59fa4-c6877d&fonts=Inter-Inter
-
-https://www.fontpalace.com/font-download/vag-rounded-bold/
-
-flow
-add ingredients to inventory
-or view inventory
-get those (inventory has ingredients in it)
-select/filter the ingredients in the inventory you want to use
-then send those to recipe api
-
-click button to accept suggestion
-upload image
-post
+- Generate API image of meal
+  - User clicks a button to make second API call
