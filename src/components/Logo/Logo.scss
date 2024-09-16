@@ -1,0 +1,57 @@
+@use "../../styles/partials/colors" as *;
+@use "../../styles/partials/typography" as *;
+@use "../../styles/partials/breakpoints" as *;
+@use "../../styles/partials/mixins" as *;
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  @include tablet {
+    flex-direction: row;
+    align-items: flex-end;
+  }
+  &__fridge {
+    margin: 0;
+    width: 142px;
+    display: flex;
+    justify-content: space-between;
+  }
+  &__letter {
+    font-size: 3rem;
+    font-family: "VAG rounded";
+    letter-spacing: 1px;
+
+    &--f {
+      color: $logo-orange;
+      text-shadow: 2px 2px #d57034;
+    }
+    &--r {
+      color: $logo-blue;
+      text-shadow: 2px 2px #6072c1;
+    }
+    &--i {
+      color: $logo-red;
+      text-shadow: 2px 2px #df1010;
+    }
+    &--d {
+      color: $logo-pink;
+      text-shadow: 2px 2px #e536b3;
+    }
+    &--g {
+      color: $logo-yellow;
+      text-shadow: 2px 2px #d8c543;
+    }
+    &--e {
+      color: $logo-green;
+      text-shadow: 2px 2px #08a97c;
+    }
+  }
+
+  &__bingo {
+    font-family: "Bungee shade";
+    width: 142px;
+    font-size: 2.2rem;
+    // color: $background-light;
+  }
+}

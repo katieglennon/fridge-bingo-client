@@ -1,0 +1,14 @@
+@use "./colors" as *;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "VAG rounded";
+  font-weight: 400;
+  background-color: $background-light;
+}

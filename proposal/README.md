@@ -159,8 +159,7 @@ Parameters:
 Response:
 
 ```
-{
-    [
+[
      {
         "user_id": "1234",
         "recipe_id": "1213",
@@ -168,9 +167,9 @@ Response:
         "rating": 4.5,
         "user_comments": "Great dish, will try again!"
         "is_saved": "true"
-     }
-    ]
-}
+     },
+     { ... }
+]
 
 ```
 
@@ -225,9 +224,12 @@ Parameters:
 Response
 
 ```
-{
-   { "ingredient": "", "quantity": "", "expiration": "" }
-}
+[
+   { "ingredient": "", "quantity": "", "expiration": "" },
+   { "ingredient": "", "quantity": "", "expiration": "" },
+   { "ingredient": "", "quantity": "", "expiration": "" },
+   { ... }
+]
 ```
 
 **POST /api/fridge/inventory**
@@ -242,9 +244,7 @@ Parameters:
 Response
 
 ```
-{
   { "ingredient": "", "quantity": "", "expiration": "" }
-}
 ```
 
 **PATCH/PUT /api/fridge/inventory**
@@ -259,9 +259,7 @@ Parameters:
 Response
 
 ```
-{
   { "ingredient": "", "quantity": "", "expiration": "" }
-}
 ```
 
 **DELETE /api/fridge/inventory**

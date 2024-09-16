@@ -1,0 +1,13 @@
+@use "../src/styles/partials/resets" as *;
+@use "../src/styles/partials/colors" as *;
+@use "../src/styles/partials/mixins" as *;
+
+.app {
+  background-color: $background-light;
+  @include full-screen;
+
+  &--dark {
+    background-color: $background-dark;
+    color: $background-light;
+  }
+}

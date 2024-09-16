@@ -1,0 +1,20 @@
+@use "../../styles/partials/colors" as *;
+@use "../../styles/partials/breakpoints" as *;
+@use "../../styles/partials/typography" as *;
+
+@mixin container-spacing {
+  max-width: 21.5rem;
+  margin: 0 auto;
+
+  @include tablet {
+    max-width: 44rem;
+  }
+
+  @include desktop {
+    max-width: 63rem;
+  }
+}
+
+@mixin full-screen {
+  height: 100vh;
+}

@@ -1,0 +1,28 @@
+@use "../../styles/partials/breakpoints" as *;
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/colors" as *;
+
+.header {
+  display: flex;
+  flex-direction: column;
+  background-color: $background-light;
+  @include container-spacing;
+
+  &--dark {
+    background-color: $background-dark;
+    color: $background-light;
+  }
+
+  &__btn {
+    align-self: flex-end;
+    background-image: url("../../assets/icons/brightness-contrast.svg");
+    background-repeat: no-repeat;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background-color: transparent;
+    &--dark {
+      filter: invert(1);
+    }
+  }
+}
