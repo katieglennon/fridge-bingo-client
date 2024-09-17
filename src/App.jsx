@@ -2,7 +2,8 @@ import "./App.scss";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Header from "./components/Header/Header";
-import AddIngredient from "./components/AddIngredientForm/AddIngredientForm";
+// import AddIngredient from "./components/AddIngredientForm/AddIngredientForm";
+import GenerateRecipeForm from "./components/GenerateRecipeForm/GenerateRecipeForm";
 
 function App() {
   const [theme, setTheme] = useState("light");
@@ -28,7 +29,8 @@ function App() {
   return (
     <div className={`app ${theme === "dark" ? "app--dark" : ""}`}>
       <Header theme={theme} handleClick={handleClick} />
-      <AddIngredient />
+      <GenerateRecipeForm />
+      {/* <AddIngredient /> */}
       <BrowserRouter>
         <Routes>
           <Route></Route>

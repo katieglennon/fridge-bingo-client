@@ -36,6 +36,15 @@ export default function UnitForm({ setQuantity, setUnit }) {
   };
   return (
     <form className="unit-form">
+      {/* must be a number */}
+      <label className="unit-form__label">
+        Quantity
+        <input
+          type="text"
+          onChange={handleQuantityChange}
+          className="unit-form__input"
+        />
+      </label>
       <div className="unit-form__radio">
         <p className="unit-form__label">Select Unit System:</p>
         <label className="unit-form__label">
@@ -59,15 +68,6 @@ export default function UnitForm({ setQuantity, setUnit }) {
           Metric
         </label>
       </div>
-      {/* must be a number */}
-      <label className="unit-form__label">
-        Quantity
-        <input
-          type="text"
-          onChange={handleQuantityChange}
-          className="unit-form__input"
-        />
-      </label>
 
       {unitSystem && (
         <div>
