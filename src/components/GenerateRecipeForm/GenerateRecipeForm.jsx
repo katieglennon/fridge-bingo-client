@@ -1,6 +1,7 @@
 import { getInventoryList } from "../../utils/apiUtils";
 import "./GenerateRecipeForm.scss";
 import { useEffect, useState } from "react";
+import { sendRecipeRequest } from "../../utils/apiUtils";
 
 export default function GenerateRecipeForm() {
   const [inventoryStock, setInventoryStock] = useState(null);
@@ -46,7 +47,7 @@ export default function GenerateRecipeForm() {
     setPreparationTime(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     const ingredients = selectedIngredients.map(
@@ -59,6 +60,20 @@ export default function GenerateRecipeForm() {
       preparationTime,
     };
     console.log(recipeRequestData);
+
+    const responseData = await sendRecipeRequest(recipeRequestData);
+
+    // add loading spinner whilst recipe generating
+    // disable the button to generate show a loading message
+
+    console.log(responseData);
+
+    // id will be in response.data.id
+    //
+    // useNavigate(`/recipe/${response.data.id}`)
+
+    // REMEMBER TO CREATE ROUTE IN APP.JSX
+    // that route will load your component for individual recipe page
   };
 
   return (
@@ -80,10 +95,10 @@ export default function GenerateRecipeForm() {
         <legend>What meal do you want to cook?</legend>
         <select value={mealType} onChange={handleMealTypeChange}>
           <option>Select</option>
-          <option>Snack</option>
-          <option>Breakfast</option>
-          <option>Lunch</option>
-          <option>Dinner</option>
+          <option>snack</option>
+          <option>breakfast</option>
+          <option>lunch</option>
+          <option>dinner</option>
         </select>
       </fieldset>
       <fieldset>
