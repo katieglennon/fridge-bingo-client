@@ -2,12 +2,14 @@ import { getInventoryList } from "../../utils/apiUtils";
 import "./GenerateRecipeForm.scss";
 import { useEffect, useState } from "react";
 import { sendRecipeRequest } from "../../utils/apiUtils";
+import loadingSpinner from "../../assets/icons/loading.gif";
 
 export default function GenerateRecipeForm() {
   const [inventoryStock, setInventoryStock] = useState(null);
   const [selectedIngredients, setSelectedIngredients] = useState([]);
   const [mealType, setMealType] = useState("");
   const [preparationTime, setPreparationTime] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const fetchInventoryData = async () => {
     try {
@@ -50,6 +52,8 @@ export default function GenerateRecipeForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    setLoading(true);
+
     const ingredients = selectedIngredients.map(
       (item) => `${item.name.toLowerCase()} ${item.quantity} ${item.unit}`
     );
@@ -61,12 +65,14 @@ export default function GenerateRecipeForm() {
     };
     console.log(recipeRequestData);
 
-    const responseData = await sendRecipeRequest(recipeRequestData);
-
-    // add loading spinner whilst recipe generating
-    // disable the button to generate show a loading message
-
-    console.log(responseData);
+    try {
+      const responseData = await sendRecipeRequest(recipeRequestData);
+      console.log(responseData);
+    } catch (error) {
+      console.error("An error occurred while generating the recipe:", error);
+    } finally {
+      setLoading(false);
+    }
 
     // id will be in response.data.id
     //
@@ -99,6 +105,7 @@ export default function GenerateRecipeForm() {
           <option>breakfast</option>
           <option>lunch</option>
           <option>dinner</option>
+          <option>dessert</option>
         </select>
       </fieldset>
       <fieldset>
@@ -109,7 +116,10 @@ export default function GenerateRecipeForm() {
           onChange={handlePreparationTimeChange}
         />
       </fieldset>
-      <button type="submit">Generate recipe</button>
+      <button type="submit" disabled={loading}>
+        {loading ? "Generating recipe..." : "Let's cook!"}
+      </button>
+      {loading && <img className="gif" src={loadingSpinner} />}
     </form>
   );
 }

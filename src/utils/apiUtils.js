@@ -20,5 +20,6 @@ export const sendRecipeRequest = async (recipeRequestData) => {
     return response.data;
   } catch (error) {
     console.error(error);
+    throw new Error();
   }
 };
