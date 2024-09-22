@@ -3,6 +3,7 @@ import "./GenerateRecipePage.scss";
 import { useEffect, useState } from "react";
 import { sendRecipeRequest } from "../../utils/apiUtils";
 import loadingSpinner from "../../assets/icons/loading.gif";
+import { useNavigate } from "react-router-dom";
 
 export default function GenerateRecipePage() {
   const [inventoryStock, setInventoryStock] = useState(null);
@@ -10,6 +11,8 @@ export default function GenerateRecipePage() {
   const [mealType, setMealType] = useState("");
   const [preparationTime, setPreparationTime] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const fetchInventoryData = async () => {
     try {
@@ -68,6 +71,7 @@ export default function GenerateRecipePage() {
     try {
       const responseData = await sendRecipeRequest(recipeRequestData);
       console.log(responseData);
+      navigate(`/recipes/${responseData.id}`);
     } catch (error) {
       console.error("An error occurred while generating the recipe:", error);
     } finally {
