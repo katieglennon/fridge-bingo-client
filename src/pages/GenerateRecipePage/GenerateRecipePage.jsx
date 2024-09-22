@@ -1,10 +1,10 @@
 import { getInventoryList } from "../../utils/apiUtils";
-import "./GenerateRecipeForm.scss";
+import "./GenerateRecipePage.scss";
 import { useEffect, useState } from "react";
 import { sendRecipeRequest } from "../../utils/apiUtils";
 import loadingSpinner from "../../assets/icons/loading.gif";
 
-export default function GenerateRecipeForm() {
+export default function GenerateRecipePage() {
   const [inventoryStock, setInventoryStock] = useState(null);
   const [selectedIngredients, setSelectedIngredients] = useState([]);
   const [mealType, setMealType] = useState("");

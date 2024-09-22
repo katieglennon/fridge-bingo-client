@@ -3,7 +3,12 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Header from "./components/Header/Header";
 // import AddIngredient from "./components/AddIngredientForm/AddIngredientForm";
-import GenerateRecipeForm from "./components/GenerateRecipeForm/GenerateRecipeForm";
+import GenerateRecipePage from "./pages/GenerateRecipePage/GenerateRecipePage";
+import HomePage from "./pages/HomePage/HomePage";
+import InventoryPage from "./pages/InventoryPage/InventoryPage";
+import RecipesPage from "./pages/RecipesPage/RecipesPage";
+import SavedRecipesPage from "./pages/SavedRecipesPage/SavedRecipesPage";
+import SingleRecipePage from "./pages/SingleRecipePage/SingleRecipePage";
 
 function App() {
   const [theme, setTheme] = useState("light");
@@ -29,11 +34,16 @@ function App() {
   return (
     <div className={`app ${theme === "dark" ? "app--dark" : ""}`}>
       <Header theme={theme} handleClick={handleClick} />
-      <GenerateRecipeForm />
+      {/* <GenerateRecipePage /> */}
       {/* <AddIngredient /> */}
       <BrowserRouter>
         <Routes>
-          <Route></Route>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/inventory" element={<InventoryPage />} />
+          <Route path="/recipes" element={<RecipesPage />} />
+          <Route path="/recipes/:id" element={<SingleRecipePage />} />
+          <Route path="/recipes/saved" element={<SavedRecipesPage />} />
+          <Route path="/recipes/new" element={<GenerateRecipePage />} />
         </Routes>
       </BrowserRouter>
     </div>
