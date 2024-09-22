@@ -4,7 +4,7 @@
 
 .app {
   background-color: $background-light;
-  @include full-screen;
+  // @include full-screen;
 
   &--dark {
     background-color: $background-dark;

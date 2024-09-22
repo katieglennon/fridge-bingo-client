@@ -11,6 +11,15 @@ export const getInventoryList = async () => {
   }
 };
 
+export const getRecipeDetails = async (recipeId) => {
+  try {
+    const response = await axios.get(`${apiUrl}/api/recipes/${recipeId}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const sendRecipeRequest = async (recipeRequestData) => {
   try {
     const response = await axios.post(
