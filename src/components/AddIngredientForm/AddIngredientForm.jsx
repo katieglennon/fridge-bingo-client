@@ -5,6 +5,13 @@ import { useState } from "react";
 export default function AddIngredient() {
   const [quantity, setQuantity] = useState("");
   const [unit, setUnit] = useState("");
+  const [isError, setIsError] = useState({
+    itemNameError: false,
+    categoryError: false,
+    expirationDateError: false,
+    quantityError: false,
+    unitError: false,
+  });
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -12,6 +19,20 @@ export default function AddIngredient() {
     const itemName = event.target.itemName.value;
     const category = event.target.category.value;
     const expirationDate = event.target.expirationDate.value;
+    const quantity = event.target.quantity.value;
+    const unit = event.target.unit.value;
+
+    if (!itemName) {
+      console.log("Please enter a name for the item");
+      setIsError({ ...isError, itemNameError: true });
+      return;
+    }
+
+    if (!category) {
+      console.log("Please enter a category type");
+      setIsError({ itemNameError: false, categoryError: true });
+      return;
+    }
 
     console.log("Item Name:", itemName);
     console.log("Category:", category);

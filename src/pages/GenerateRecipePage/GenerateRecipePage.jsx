@@ -77,13 +77,6 @@ export default function GenerateRecipePage() {
     } finally {
       setLoading(false);
     }
-
-    // id will be in response.data.id
-    //
-    // useNavigate(`/recipe/${response.data.id}`)
-
-    // REMEMBER TO CREATE ROUTE IN APP.JSX
-    // that route will load your component for individual recipe page
   };
 
   return (
