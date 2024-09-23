@@ -1,0 +1,10 @@
+@use "../../styles/partials/colors" as *;
+
+.single-recipe {
+  &__save-indicator {
+    &--true {
+      filter: invert(39%) sepia(96%) saturate(7476%) hue-rotate(342deg)
+        brightness(106%) contrast(126%);
+    }
+  }
+}

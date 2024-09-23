@@ -32,3 +32,14 @@ export const sendRecipeRequest = async (recipeRequestData) => {
     throw new Error();
   }
 };
+
+export const saveRecipeRequest = async (recipeId, isSaved) => {
+  try {
+    const response = await axios.patch(`${apiUrl}/api/recipes/${recipeId}`, {
+      is_saved: isSaved,
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
