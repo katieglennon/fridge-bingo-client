@@ -1,11 +1,20 @@
 import { useState } from "react";
 import "./UnitForm.scss";
 
-export default function UnitForm({ setQuantity, setUnit }) {
+export default function UnitForm({
+  setQuantity,
+  setUnit,
+  quantityError,
+  setQuantityError,
+  unitError,
+  setUnitError,
+  isError,
+}) {
   const [unitSystem, setUnitSystem] = useState("");
 
   const imperial = [
     "Select",
+    "Unit(s)",
     "Teaspoon",
     "Tablespoon",
     "Pound",
@@ -16,6 +25,7 @@ export default function UnitForm({ setQuantity, setUnit }) {
   ];
   const metric = [
     "Select",
+    "Unit(s)",
     "Millilitre",
     "Litre",
     "Milligram",
@@ -35,14 +45,16 @@ export default function UnitForm({ setQuantity, setUnit }) {
     setUnit(event.target.value);
   };
   return (
-    <form className="unit-form">
+    <fieldset className="unit-form">
       {/* must be a number */}
       <label className="unit-form__label">
         Quantity
         <input
           type="text"
           onChange={handleQuantityChange}
-          className="unit-form__input"
+          className={`unit-form__input ${
+            isError.quantityError ? "unit-form__input--error" : ""
+          }`}
         />
       </label>
       <div className="unit-form__radio">
@@ -74,7 +86,9 @@ export default function UnitForm({ setQuantity, setUnit }) {
           <p className="unit-form__label">Select Unit of Measurement:</p>
           <select
             onChange={handleSelectedUnitChange}
-            className="unit-form__input"
+            className={`unit-form__input ${
+              isError.unitError ? "unit-form__input--error" : ""
+            }`}
           >
             {(unitSystem === "imperial" ? imperial : metric).map(
               (option, index) => (
@@ -86,6 +100,6 @@ export default function UnitForm({ setQuantity, setUnit }) {
           </select>
         </div>
       )}
-    </form>
+    </fieldset>
   );
 }

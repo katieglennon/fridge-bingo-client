@@ -4,7 +4,9 @@ import { useState } from "react";
 
 export default function AddIngredient() {
   const [quantity, setQuantity] = useState("");
+  const [quantityError, setQuantityError] = useState("");
   const [unit, setUnit] = useState("");
+  const [unitError, setUnitError] = useState("");
   const [isError, setIsError] = useState({
     itemNameError: false,
     categoryError: false,
@@ -19,8 +21,8 @@ export default function AddIngredient() {
     const itemName = event.target.itemName.value;
     const category = event.target.category.value;
     const expirationDate = event.target.expirationDate.value;
-    const quantity = event.target.quantity.value;
-    const unit = event.target.unit.value;
+    // const quantity = event.target.quantity.value;
+    // const unit = event.target.unit.value;
 
     if (!itemName) {
       console.log("Please enter a name for the item");
@@ -28,11 +30,42 @@ export default function AddIngredient() {
       return;
     }
 
-    if (!category) {
+    if (category === "Select") {
       console.log("Please enter a category type");
       setIsError({ itemNameError: false, categoryError: true });
       return;
     }
+
+    if (!quantity) {
+      console.log("Please enter a quantity");
+      setIsError({
+        itemNameError: false,
+        categoryError: false,
+        quantityError: true,
+      });
+      return;
+    }
+    // else {
+    //   setQuantityError(""); // Reset error if valid
+    // }
+
+    if (!unit) {
+      console.log("Please select the unit");
+      setIsError({
+        itemNameError: false,
+        categoryError: false,
+        quantityError: false,
+        unitError: true,
+      });
+      return;
+    }
+
+    setIsError({
+      itemNameError: false,
+      categoryError: false,
+      quantityError: false,
+      unitError: false,
+    });
 
     console.log("Item Name:", itemName);
     console.log("Category:", category);
@@ -48,12 +81,19 @@ export default function AddIngredient() {
           <input
             name="itemName"
             type="text"
-            className="add-ingredient__form-input"
+            className={`add-ingredient__form-input ${
+              isError.itemNameError ? "add-ingredient__form-input--error" : ""
+            }`}
           />
         </label>
         <label className="add-ingredient__form-label">
           Category
-          <select name="category" className="add-ingredient__form-input">
+          <select
+            name="category"
+            className={`add-ingredient__form-input ${
+              isError.categoryError ? "add-ingredient__form-input--error" : ""
+            }`}
+          >
             <option>Select</option>
             <option>🍎 Fruits</option>
             <option>🥦 Vegetables</option>
@@ -64,7 +104,15 @@ export default function AddIngredient() {
             <option>🥫 Other</option>
           </select>
         </label>
-        <UnitForm setQuantity={setQuantity} setUnit={setUnit} />
+        <UnitForm
+          setQuantity={setQuantity}
+          setUnit={setUnit}
+          quantityError={quantityError}
+          setQuantityError={setQuantityError}
+          unitError={unitError}
+          setUnitError={setUnitError}
+          isError={isError}
+        />
         <label className="add-ingredient__form-label">
           Expiration date
           <input
@@ -74,10 +122,13 @@ export default function AddIngredient() {
           />
         </label>
         <div className="add-ingredient__cta">
-          <button className="add-ingredient__button add-ingredient__button--cancel">
+          <button
+            type="button"
+            className="add-ingredient__button add-ingredient__button--cancel"
+          >
             <p className="add-ingredient__form-label">Cancel</p>
           </button>
-          <button className="add-ingredient__button">
+          <button type="submit" className="add-ingredient__button">
             <p className="add-ingredient__form-label">Add ingredient</p>
           </button>
         </div>
