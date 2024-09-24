@@ -3,7 +3,10 @@ import UnitForm from "../UnitForm/UnitForm";
 import { useState } from "react";
 import { addStockItem } from "../../utils/apiUtils";
 
-export default function AddIngredient() {
+export default function AddIngredient({
+  setIsModalOpen,
+  addNewItemToInventory,
+}) {
   const [quantity, setQuantity] = useState("");
   const [quantityError, setQuantityError] = useState("");
   const [unit, setUnit] = useState("");
@@ -16,6 +19,10 @@ export default function AddIngredient() {
     unitError: false,
   });
   const [formValidation, setFormValidation] = useState("");
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   const handleInputChange = (event) => {
     const inputName = event.target.name;
@@ -87,10 +94,7 @@ export default function AddIngredient() {
         quantityError: true,
       });
       return;
-    } //else {
-    //   setQuantityError(false);
-    //   setFormValidation("");
-    // }
+    }
 
     if (!unit || unit === "Select") {
       console.log("Please select the unit");
@@ -100,9 +104,7 @@ export default function AddIngredient() {
         unitError: true,
       });
       return;
-    } // else {
-    //   setUnitError(false);
-    // }
+    }
 
     setIsError({
       itemNameError: false,
@@ -129,7 +131,12 @@ export default function AddIngredient() {
 
     try {
       const responseData = await addStockItem(stockItemData);
+      setFormValidation("Item added!");
       console.log(responseData);
+      addNewItemToInventory(stockItemData);
+      setTimeout(() => {
+        setIsModalOpen(false);
+      }, 2000);
     } catch (error) {
       console.error(
         "An error occurred while adding the item to your inventory:",
@@ -189,9 +196,20 @@ export default function AddIngredient() {
           />
         </label>
 
-        <p className="add-ingredient__validation">{formValidation}</p>
+        <p
+          className={`add-ingredient__validation ${
+            Object.values(isError).some((error) => error)
+              ? "add-ingredient__validation--error"
+              : formValidation === "Item added!"
+              ? "add-ingredient__validation"
+              : ""
+          }`}
+        >
+          {formValidation}
+        </p>
         <div className="add-ingredient__cta">
           <button
+            onClick={closeModal}
             type="button"
             className="add-ingredient__button add-ingredient__button--cancel"
           >

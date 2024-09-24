@@ -14,7 +14,7 @@ export default function UnitForm({
 
   const imperial = [
     "Select",
-    "Unit(s)",
+    "Unit",
     "Teaspoon",
     "Tablespoon",
     "Pound",
@@ -25,7 +25,7 @@ export default function UnitForm({
   ];
   const metric = [
     "Select",
-    "Unit(s)",
+    "Unit",
     "Millilitre",
     "Litre",
     "Milligram",
