@@ -56,3 +56,12 @@ export const addStockItem = async (stockItemData) => {
     throw new Error();
   }
 };
+
+export const getSavedRecipes = async () => {
+  try {
+    const response = await axios.get(`${apiUrl}/api/recipes/saved`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};

@@ -2,7 +2,7 @@
 
 ## Overview
 
-Fridge Bingo encourages users to be resourceful and creative in the kitchen in a bid to combat food waste. The aim make cooking more accessible and fun by using random or leftover ingredients that they already have at home in order to create a delicious meal.
+Fridge Bingo encourages users to be resourceful and creative in the kitchen in a bid to combat food waste. The aim is to make cooking more accessible and fun by using random or leftover ingredients that they already have at home in order to create a delicious meal.
 
 ### Problem Space
 
