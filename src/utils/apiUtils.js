@@ -43,3 +43,16 @@ export const saveRecipeRequest = async (recipeId, isSaved) => {
     console.error(error);
   }
 };
+
+export const addStockItem = async (stockItemData) => {
+  try {
+    const response = await axios.post(
+      `${apiUrl}/api/inventory/`,
+      stockItemData
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error();
+  }
+};
