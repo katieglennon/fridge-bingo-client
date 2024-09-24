@@ -46,7 +46,6 @@ export default function UnitForm({
   };
   return (
     <fieldset className="unit-form">
-      {/* must be a number */}
       <label className="unit-form__label">
         Quantity
         <input
@@ -87,7 +86,7 @@ export default function UnitForm({
           <select
             onChange={handleSelectedUnitChange}
             className={`unit-form__input ${
-              isError.unitError ? "unit-form__input--error" : ""
+              unitError ? "unit-form__input--error" : ""
             }`}
           >
             {(unitSystem === "imperial" ? imperial : metric).map(

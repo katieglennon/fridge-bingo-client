@@ -14,6 +14,44 @@ export default function AddIngredient() {
     quantityError: false,
     unitError: false,
   });
+  const [formValidation, setFormValidation] = useState("");
+
+  const handleInputChange = (event) => {
+    const inputName = event.target.name;
+    const inputValue = event.target.value;
+
+    if (inputName === "itemName") {
+      if (!inputValue) {
+        setIsError({ ...isError, itemNameError: true });
+      } else {
+        setIsError({ ...isError, itemNameError: false });
+        setFormValidation("");
+      }
+    } else if (inputName === "category") {
+      if (inputValue === "Select") {
+        setIsError({ ...isError, categoryError: true });
+      } else {
+        setIsError({ ...isError, categoryError: false });
+        setFormValidation("");
+      }
+    } else if (inputName === "quantity") {
+      setQuantity(inputValue);
+      if (!inputValue) {
+        setIsError({ ...isError, quantityError: true });
+      } else {
+        setIsError({ ...isError, quantityError: false });
+        setFormValidation("");
+      }
+    } else if (inputName === "unit") {
+      setUnit(inputValue);
+      if (inputValue === "Select") {
+        setIsError({ ...isError, unitError: true });
+      } else {
+        setIsError({ ...isError, unitError: false });
+        setFormValidation("");
+      }
+    }
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -21,43 +59,45 @@ export default function AddIngredient() {
     const itemName = event.target.itemName.value;
     const category = event.target.category.value;
     const expirationDate = event.target.expirationDate.value;
-    // const quantity = event.target.quantity.value;
-    // const unit = event.target.unit.value;
 
     if (!itemName) {
       console.log("Please enter a name for the item");
+      setFormValidation("Please enter a name for the item");
       setIsError({ ...isError, itemNameError: true });
       return;
     }
 
     if (category === "Select") {
       console.log("Please enter a category type");
-      setIsError({ itemNameError: false, categoryError: true });
+      setFormValidation("Please enter a category type");
+      setIsError({ ...isError, categoryError: true });
       return;
     }
 
-    if (!quantity) {
-      console.log("Please enter a quantity");
+    if (quantity === "" || isNaN(quantity) || Number(quantity) <= 0) {
+      console.log(typeof quantity);
+      console.log("Please enter a valid quantity. This must be a number");
+      setFormValidation("Please enter a valid quantity. This must be a number");
       setIsError({
-        itemNameError: false,
-        categoryError: false,
+        ...isError,
         quantityError: true,
       });
       return;
+    } else {
+      setQuantityError(false);
+      setFormValidation("");
     }
-    // else {
-    //   setQuantityError(""); // Reset error if valid
-    // }
 
-    if (!unit) {
+    if (!unit || unit === "Select") {
       console.log("Please select the unit");
+      setFormValidation("Please select the unit");
       setIsError({
-        itemNameError: false,
-        categoryError: false,
-        quantityError: false,
+        ...isError,
         unitError: true,
       });
       return;
+    } else {
+      setUnitError(false);
     }
 
     setIsError({
@@ -67,6 +107,7 @@ export default function AddIngredient() {
       unitError: false,
     });
 
+    console.log(typeof quantity);
     console.log("Item Name:", itemName);
     console.log("Category:", category);
     console.log("Expiration Date:", expirationDate);
@@ -84,6 +125,7 @@ export default function AddIngredient() {
             className={`add-ingredient__form-input ${
               isError.itemNameError ? "add-ingredient__form-input--error" : ""
             }`}
+            onChange={handleInputChange}
           />
         </label>
         <label className="add-ingredient__form-label">
@@ -93,6 +135,7 @@ export default function AddIngredient() {
             className={`add-ingredient__form-input ${
               isError.categoryError ? "add-ingredient__form-input--error" : ""
             }`}
+            onChange={handleInputChange}
           >
             <option>Select</option>
             <option>🍎 Fruits</option>
@@ -112,6 +155,7 @@ export default function AddIngredient() {
           unitError={unitError}
           setUnitError={setUnitError}
           isError={isError}
+          handleInputChange={handleInputChange}
         />
         <label className="add-ingredient__form-label">
           Expiration date
@@ -121,6 +165,8 @@ export default function AddIngredient() {
             className="add-ingredient__form-input"
           />
         </label>
+
+        <p className="add-ingredient__validation">{formValidation}</p>
         <div className="add-ingredient__cta">
           <button
             type="button"
