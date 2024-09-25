@@ -10,6 +10,7 @@ export default function InventoryPage() {
   const [inventoryStock, setInventoryStock] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("all");
 
   const fetchInventoryData = async () => {
     try {
@@ -32,18 +33,55 @@ export default function InventoryPage() {
     return <p>Loading...</p>;
   }
 
+  const categories = [
+    { name: "all", emoji: "🍽️" },
+    { name: "fruits", emoji: "🍎" },
+    { name: "vegetables", emoji: "🥦" },
+    { name: "grains", emoji: "🌾" },
+    { name: "herbs", emoji: "🌿" },
+    { name: "proteins", emoji: "🍗" },
+    { name: "dairy", emoji: "🧀" },
+    { name: "spices", emoji: "🌶️" },
+    { name: "other", emoji: "🥫" },
+  ];
+
   const filteredStock = inventoryStock.filter((item) => {
-    return item.name.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSearchTerm = item.name
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
+    const matchesCategoryFilter =
+      categoryFilter === "all" || item.category === categoryFilter;
+
+    return matchesSearchTerm && matchesCategoryFilter;
   });
 
   const handleSearchInput = (event) => {
     setSearchTerm(event.target.value);
   };
 
+  const handleCategorySelection = (category) => {
+    setCategoryFilter(category);
+  };
+
   return (
     <main>
-      <h1>This is the inventory page</h1>
+      <h1>Explore your inventory</h1>
       <SearchBar handleSearchInput={handleSearchInput} />
+
+      <div className="category-filter">
+        {categories.map(({ name, emoji }) => (
+          <button
+            key={name}
+            onClick={() => handleCategorySelection(name)}
+            className={`category-filter__button ${
+              categoryFilter === name ? "active" : ""
+            }`}
+          >
+            {name} {emoji}
+          </button>
+        ))}
+      </div>
+
       <button onClick={() => setIsModalOpen(true)} className="inventory__add">
         Add
       </button>
