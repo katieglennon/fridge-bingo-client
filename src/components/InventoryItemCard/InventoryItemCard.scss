@@ -1,0 +1,7 @@
+.inventory-item-card {
+  border: 1px solid black;
+
+  &__name {
+    text-transform: capitalize;
+  }
+}

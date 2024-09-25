@@ -171,7 +171,8 @@ export default function AddIngredient({
             <option>🍎 Fruits</option>
             <option>🥦 Vegetables</option>
             <option>🌾 Grains</option>
-            <option>🥩 Proteins</option>
+            <option>🌿 Herbs</option>
+            <option>🍗 Proteins</option>
             <option>🧀 Dairy</option>
             <option>🌶️ Spices</option>
             <option>🥫 Other</option>

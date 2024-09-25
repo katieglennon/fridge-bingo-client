@@ -4,17 +4,24 @@ export default function InventoryItemCard({ inventoryStockItem }) {
   const expiryDate = new Date(inventoryStockItem.expiration_date);
   const formattedExpiryDate = expiryDate.toLocaleDateString("en-GB");
 
-  //   <option>🍎 Fruits</option>
-  //   <option>🥦 Vegetables</option>
-  //   <option>🌾 Grains</option>
-  //   <option>🥩 Proteins</option>
-  //   <option>🧀 Dairy</option>
-  //   <option>🌶️ Spices</option>
-  //   <option>🥫 Other</option>
+  const categoryEmojis = {
+    fruits: "🍎",
+    vegetables: "🥦",
+    grains: "🌾",
+    herbs: "🌿",
+    proteins: "🍗",
+    dairy: "🧀",
+    spices: "🌶️",
+    other: "🥫",
+  };
+
+  const emoji = categoryEmojis[inventoryStockItem.category];
 
   return (
     <article className="inventory-item-card">
-      <h1 className="inventory-item-card__name">{inventoryStockItem.name}</h1>
+      <h1 className="inventory-item-card__name">
+        {inventoryStockItem.name} {emoji}
+      </h1>
       <span className="inventory-item-card__quantity">
         {inventoryStockItem.quantity}
       </span>

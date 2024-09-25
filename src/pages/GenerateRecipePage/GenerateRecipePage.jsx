@@ -83,16 +83,18 @@ export default function GenerateRecipePage() {
     <form onSubmit={handleSubmit}>
       <fieldset className="fieldset">
         <legend>Choose ingredients</legend>
-        {inventoryStock.map((item) => (
-          <label key={item.id}>
-            {item.name} - {item.category} ({item.quantity} {item.unit})
-            <input
-              type="checkbox"
-              value={item.id}
-              onChange={() => handleCheckboxChange(item)}
-            />
-          </label>
-        ))}
+        {inventoryStock
+          .filter((inventoryStockItem) => inventoryStockItem.quantity > 0)
+          .map((item) => (
+            <label key={item.id}>
+              {item.name} - {item.category} ({item.quantity} {item.unit})
+              <input
+                type="checkbox"
+                value={item.id}
+                onChange={() => handleCheckboxChange(item)}
+              />
+            </label>
+          ))}
       </fieldset>
       <fieldset>
         <legend>What meal do you want to cook?</legend>

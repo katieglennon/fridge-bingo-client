@@ -4,10 +4,12 @@ import { useState, useEffect } from "react";
 import InventoryItemCard from "../../components/InventoryItemCard/InventoryItemCard";
 import AddIngredientForm from "../../components/AddIngredientForm/AddIngredientForm";
 import Modal from "../../components/Modal/Modal";
+import SearchBar from "../../components/SearchBar/SearchBar";
 
 export default function InventoryPage() {
   const [inventoryStock, setInventoryStock] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const fetchInventoryData = async () => {
     try {
@@ -30,9 +32,18 @@ export default function InventoryPage() {
     return <p>Loading...</p>;
   }
 
+  const filteredStock = inventoryStock.filter((item) => {
+    return item.name.toLowerCase().includes(searchTerm.toLowerCase());
+  });
+
+  const handleSearchInput = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
   return (
     <main>
       <h1>This is the inventory page</h1>
+      <SearchBar handleSearchInput={handleSearchInput} />
       <button onClick={() => setIsModalOpen(true)} className="inventory__add">
         Add
       </button>
@@ -42,14 +53,16 @@ export default function InventoryPage() {
           addNewItemToInventory={addNewItemToInventory}
         />
       </Modal>
-      {inventoryStock.map((inventoryStockItem) => {
-        return (
-          <InventoryItemCard
-            key={inventoryStockItem.id}
-            inventoryStockItem={inventoryStockItem}
-          />
-        );
-      })}
+      {filteredStock
+        .filter((inventoryStockItem) => inventoryStockItem.quantity > 0)
+        .map((inventoryStockItem) => {
+          return (
+            <InventoryItemCard
+              key={inventoryStockItem.id}
+              inventoryStockItem={inventoryStockItem}
+            />
+          );
+        })}
     </main>
   );
 }
