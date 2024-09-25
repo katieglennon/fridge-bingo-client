@@ -1,0 +1,12 @@
+@use "../../styles/partials/colors" as *;
+
+.search {
+  width: 100%;
+  padding: 0.5rem;
+  font-family: "VAG rounded";
+  font-size: 1.25rem;
+  border-radius: 4px;
+  border-width: 1px;
+  color: $neutral-gray;
+  letter-spacing: 0.5px;
+}

@@ -1,7 +1,32 @@
+@use "../../styles/partials/colors" as *;
+
 .inventory-item-card {
   border: 1px solid black;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px;
+
+  &--expiring-soon {
+    background-color: rgba(241, 219, 75, 0.5);
+  }
+
+  &--expired {
+    background-color: rgba(248, 18, 18, 0.5);
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+  }
 
   &__name {
     text-transform: capitalize;
+    margin: 0;
+  }
+
+  &__info {
+    display: flex;
+    justify-content: space-between;
   }
 }

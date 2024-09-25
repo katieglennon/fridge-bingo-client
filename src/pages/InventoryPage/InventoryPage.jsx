@@ -55,6 +55,10 @@ export default function InventoryPage() {
     return matchesSearchTerm && matchesCategoryFilter;
   });
 
+  const sortedFilteredStock = filteredStock.sort((a, b) => {
+    return new Date(b.created_at) - new Date(a.created_at);
+  });
+
   const handleSearchInput = (event) => {
     setSearchTerm(event.target.value);
   };
@@ -64,17 +68,24 @@ export default function InventoryPage() {
   };
 
   return (
-    <main>
-      <h1>Explore your inventory</h1>
+    <main className="inventory">
+      <h1 className="inventory__heading">Explore your inventory</h1>
+      <button
+        onClick={() => setIsModalOpen(true)}
+        className="inventory__add-button"
+      >
+        Add to inventory
+      </button>
+
       <SearchBar handleSearchInput={handleSearchInput} />
 
-      <div className="category-filter">
+      <div className="inventory__filter">
         {categories.map(({ name, emoji }) => (
           <button
             key={name}
             onClick={() => handleCategorySelection(name)}
-            className={`category-filter__button ${
-              categoryFilter === name ? "active" : ""
+            className={`inventory__filter-button ${
+              categoryFilter === name ? "inventory__filter-button--active" : ""
             }`}
           >
             {name} {emoji}
@@ -82,25 +93,24 @@ export default function InventoryPage() {
         ))}
       </div>
 
-      <button onClick={() => setIsModalOpen(true)} className="inventory__add">
-        Add
-      </button>
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <AddIngredientForm
           setIsModalOpen={setIsModalOpen}
           addNewItemToInventory={addNewItemToInventory}
         />
       </Modal>
-      {filteredStock
-        .filter((inventoryStockItem) => inventoryStockItem.quantity > 0)
-        .map((inventoryStockItem) => {
-          return (
-            <InventoryItemCard
-              key={inventoryStockItem.id}
-              inventoryStockItem={inventoryStockItem}
-            />
-          );
-        })}
+      <section className="inventory__list">
+        {sortedFilteredStock
+          .filter((inventoryStockItem) => inventoryStockItem.quantity > 0)
+          .map((inventoryStockItem) => {
+            return (
+              <InventoryItemCard
+                key={inventoryStockItem.id}
+                inventoryStockItem={inventoryStockItem}
+              />
+            );
+          })}
+      </section>
     </main>
   );
 }
