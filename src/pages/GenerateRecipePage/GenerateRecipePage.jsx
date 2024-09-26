@@ -82,21 +82,23 @@ export default function GenerateRecipePage() {
     event.preventDefault();
 
     setLoading(true);
+    setFormValidation("");
 
     const ingredients = selectedIngredients.map(
       (item) => `${item.name.toLowerCase()} ${item.quantity} ${item.unit}`
     );
 
     if (selectedIngredients.length < 2) {
-      console.log("You must pick at least 2 ingredients");
       setFormValidation("You must pick at least 2 ingredients");
       setIsError({ ...isError, ingredientError: true });
+      setLoading(false);
       return;
     }
 
     if (!mealType || mealType === "Select") {
       setFormValidation("Please enter a meal type");
       setIsError({ ...isError, mealTypeError: true });
+      setLoading(false);
       return;
     }
 
@@ -111,6 +113,7 @@ export default function GenerateRecipePage() {
         ...isError,
         prepTimeError: true,
       });
+      setLoading(false);
       return;
     }
 
