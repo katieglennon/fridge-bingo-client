@@ -52,6 +52,12 @@
     font-family: "Bungee shade";
     width: 142px;
     font-size: 2.2rem;
-    // color: $background-light;
+    color: $font-dark;
+  }
+}
+
+.app--dark {
+  .logo__bingo {
+    color: $font-light;
   }
 }

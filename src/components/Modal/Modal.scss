@@ -1,3 +1,5 @@
+@use "../../styles/partials/colors" as *;
+
 .modal {
   &__overlay {
     position: fixed;
@@ -12,7 +14,7 @@
   }
 
   &__content {
-    background: white;
+    background: $background-light;
     border-radius: 8px;
     padding: 20px;
     max-width: 500px;
@@ -28,5 +30,12 @@
     border: none;
     font-size: 20px;
     cursor: pointer;
+  }
+}
+
+.app--dark {
+  .modal__content {
+    background-color: $background-dark;
+    color: $font-light;
   }
 }

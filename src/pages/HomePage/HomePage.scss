@@ -1,0 +1,29 @@
+@use "../../styles/partials/colors" as *;
+
+.home {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  &__link {
+    text-decoration: none;
+    font-size: 2rem;
+    color: $font-dark;
+    border: 1px solid $neutral-gray;
+    padding: 1rem;
+    height: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:hover {
+      font-family: "Bungee shade";
+      //   text-transform: uppercase;
+    }
+  }
+}
+
+.app--dark {
+  .home__link {
+    color: $font-light;
+  }
+}

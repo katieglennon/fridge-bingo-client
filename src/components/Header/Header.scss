@@ -10,7 +10,7 @@
 
   &--dark {
     background-color: $background-dark;
-    color: $background-light;
+    color: $font-light;
   }
 
   &__btn {
@@ -24,5 +24,28 @@
     &--dark {
       filter: invert(1);
     }
+  }
+
+  &__logo-link {
+    text-decoration: none;
+  }
+
+  &__nav-link {
+    text-decoration: none;
+    color: $font-dark;
+    &:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    &--active {
+      text-decoration: underline;
+    }
+  }
+}
+
+.app--dark {
+  .header__nav-link {
+    color: $font-light;
   }
 }

@@ -7,7 +7,7 @@ export default function Modal({ isOpen, onClose, children }) {
     <div className="modal__overlay" onClick={onClose}>
       <div className="modal__content" onClick={(e) => e.stopPropagation()}>
         <button className="modal__close" onClick={onClose}>
-          &times; {/* Close icon */}
+          &times;
         </button>
         {children}
       </div>

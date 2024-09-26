@@ -1,9 +1,21 @@
+import { Link } from "react-router-dom";
 import "./HomePage.scss";
 
 export default function HomePage() {
   return (
-    <main>
-      <h1>This is the homepage</h1>
+    <main className="home">
+      <Link className="home__link home__link--inventory" to="/inventory">
+        Check out Inventory
+      </Link>
+      <Link className="home__link home__link--new-recipe" to="/recipes/new">
+        Create new Meal
+      </Link>
+      <Link
+        className="home__link home__link--saved-recipes"
+        to="/recipes/saved"
+      >
+        Favourited Recipes
+      </Link>
     </main>
   );
 }

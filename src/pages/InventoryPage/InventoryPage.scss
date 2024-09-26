@@ -22,7 +22,10 @@
     border-radius: 4px;
     border-width: 1px;
     letter-spacing: 0.5px;
-    // color: $font-dark;
+
+    background-color: $background-dark;
+    color: $font-light;
+    border: none;
     &:hover {
       background-color: rgba(107, 127, 215);
       cursor: pointer;
@@ -36,16 +39,39 @@
     justify-content: center;
   }
   &__filter-button {
-    // width: 30%;
     font-family: "VAG rounded";
     letter-spacing: 0.25px;
     border-radius: 4px;
     border-width: 1px;
     display: flex;
+    background-color: $background-dark;
+    color: $font-light;
+    border: none;
     &:hover {
       background-color: rgba(107, 127, 215);
       cursor: pointer;
     }
+
+    &--active {
+      background-color: rgba(107, 127, 215);
+    }
+  }
+}
+
+.app--dark {
+  .inventory__add-button {
+    background-color: $background-light;
+    color: $font-dark;
+
+    &:hover {
+      background-color: rgba(107, 127, 215);
+      cursor: pointer;
+    }
+  }
+
+  .inventory__filter-button {
+    background-color: $background-light;
+    color: $font-dark;
 
     &--active {
       background-color: rgba(107, 127, 215);

@@ -33,11 +33,11 @@ function App() {
 
   return (
     <div className={`app ${theme === "dark" ? "app--dark" : ""}`}>
-      <Header theme={theme} handleClick={handleClick} />
       <BrowserRouter>
+        <Header theme={theme} handleClick={handleClick} />
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/inventory" element={<InventoryPage />} />
+          <Route path="/inventory" theme={theme} element={<InventoryPage />} />
           <Route path="/recipes" element={<RecipesPage />} />
           <Route path="/recipes/:id" element={<SingleRecipePage />} />
           <Route path="/recipes/saved" element={<SavedRecipesPage />} />
