@@ -1,9 +1,12 @@
 import "./RecipesPage.scss";
+import LetterHover from "../../components/LetterHover/LetterHover";
 
 export default function RecipesPage() {
   return (
-    <main>
-      <h1>This is the recipes page</h1>
+    <main className="recipes">
+      <h1 className="recipes__heading">
+        <LetterHover text="Recipe Collection" />
+      </h1>
     </main>
   );
 }

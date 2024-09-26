@@ -2,6 +2,8 @@ import "./SavedRecipesPage.scss";
 import Note from "../../components/Note/Note";
 import { getSavedRecipes } from "../../utils/apiUtils";
 import { useState, useEffect } from "react";
+import LetterHover from "../../components/LetterHover/LetterHover";
+import { Link } from "react-router-dom";
 
 export default function SavedRecipesPage() {
   const [savedRecipes, setSavedRecipes] = useState([]);
@@ -38,7 +40,10 @@ export default function SavedRecipesPage() {
 
   return (
     <main className="saved-recipes">
-      <h1>This is the saved recipes page</h1>
+      <h1 className="saved-recipes__heading">
+        <LetterHover text="Favourite Dishes" />
+      </h1>
+      <Link to="/recipes">View history</Link>
       {savedRecipes.map((recipe) => {
         return (
           <Note

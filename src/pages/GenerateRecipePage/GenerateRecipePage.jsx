@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { sendRecipeRequest } from "../../utils/apiUtils";
 import loadingSpinner from "../../assets/icons/loading.gif";
 import { useNavigate } from "react-router-dom";
+import LetterHover from "../../components/LetterHover/LetterHover";
 
 export default function GenerateRecipePage() {
   const [inventoryStock, setInventoryStock] = useState(null);
@@ -142,97 +143,102 @@ export default function GenerateRecipePage() {
   };
 
   return (
-    <form className="generator" onSubmit={handleSubmit}>
-      <fieldset
-        className={`generator__fieldset ${
-          isError.ingredientError ? "generator__fieldset--error" : ""
-        }`}
-      >
-        <legend
-          className={`generator__legend ${
-            isError.ingredientError ? "generator__legend--error" : ""
+    <main className="generator">
+      <h1 className="generator__heading">
+        <LetterHover text="Create a Culinary Masterpiece" />
+      </h1>
+      <form className="generator__form" onSubmit={handleSubmit}>
+        <fieldset
+          className={`generator__fieldset ${
+            isError.ingredientError ? "generator__fieldset--error" : ""
           }`}
         >
-          Choose ingredients
-        </legend>
-        <div className="generator__list">
-          {inventoryStock
-            .filter((inventoryStockItem) => inventoryStockItem.quantity > 0)
-            .map((item) => (
-              <label className="generator__ingredient" key={item.id}>
-                <input
-                  name="checkedIngredient"
-                  className="generator__checkbox"
-                  type="checkbox"
-                  value={item.id}
-                  onChange={() => handleCheckboxChange(item)}
-                />
-                {item.name} - {item.quantity} {item.unit}
-              </label>
-            ))}
-        </div>
-      </fieldset>
-      <fieldset
-        className={`generator__fieldset ${
-          isError.mealTypeError ? "generator__fieldset--error" : ""
-        }`}
-      >
-        <legend
-          className={`generator__legend ${
-            isError.mealTypeError ? "generator__legend--error" : ""
+          <legend
+            className={`generator__legend ${
+              isError.ingredientError ? "generator__legend--error" : ""
+            }`}
+          >
+            Choose ingredients
+          </legend>
+          <div className="generator__list">
+            {inventoryStock
+              .filter((inventoryStockItem) => inventoryStockItem.quantity > 0)
+              .map((item) => (
+                <label className="generator__ingredient" key={item.id}>
+                  <input
+                    name="checkedIngredient"
+                    className="generator__checkbox"
+                    type="checkbox"
+                    value={item.id}
+                    onChange={() => handleCheckboxChange(item)}
+                  />
+                  {item.name} - {item.quantity} {item.unit}
+                </label>
+              ))}
+          </div>
+        </fieldset>
+        <fieldset
+          className={`generator__fieldset ${
+            isError.mealTypeError ? "generator__fieldset--error" : ""
           }`}
         >
-          What meal do you want to cook?
-        </legend>
-        <select
-          name="mealType"
-          className="generator__meal"
-          value={mealType}
-          onChange={handleMealTypeChange}
-        >
-          <option>Select</option>
-          <option>snack</option>
-          <option>breakfast</option>
-          <option>lunch</option>
-          <option>dinner</option>
-          <option>dessert</option>
-        </select>
-      </fieldset>
-      <fieldset
-        className={`generator__fieldset ${
-          isError.prepTimeError ? "generator__fieldset--error" : ""
-        }`}
-      >
-        <legend
-          className={`generator__legend ${
-            isError.prepTimeError ? "generator__legend--error" : ""
+          <legend
+            className={`generator__legend ${
+              isError.mealTypeError ? "generator__legend--error" : ""
+            }`}
+          >
+            What meal do you want to cook?
+          </legend>
+          <select
+            name="mealType"
+            className="generator__meal"
+            value={mealType}
+            onChange={handleMealTypeChange}
+          >
+            <option>Select</option>
+            <option>snack</option>
+            <option>breakfast</option>
+            <option>lunch</option>
+            <option>dinner</option>
+            <option>dessert</option>
+          </select>
+        </fieldset>
+        <fieldset
+          className={`generator__fieldset ${
+            isError.prepTimeError ? "generator__fieldset--error" : ""
           }`}
         >
-          How much time do you have?
-        </legend>
-        <input
-          name="prepTime"
-          className="generator__time"
-          type="text"
-          value={preparationTime}
-          onChange={handlePreparationTimeChange}
-        />
-      </fieldset>
+          <legend
+            className={`generator__legend ${
+              isError.prepTimeError ? "generator__legend--error" : ""
+            }`}
+          >
+            How much time do you have?
+          </legend>
+          <input
+            name="prepTime"
+            className="generator__time"
+            type="text"
+            value={preparationTime}
+            onChange={handlePreparationTimeChange}
+          />
+        </fieldset>
 
-      <p
-        className={`generator__validation ${
-          Object.values(isError).some((error) => error)
-            ? "generator__validation--error"
-            : ""
-        }`}
-      >
-        {formValidation}
-      </p>
+        <p
+          className={`generator__validation ${
+            Object.values(isError).some((error) => error)
+              ? "generator__validation--error"
+              : ""
+          }`}
+        >
+          {formValidation}
+        </p>
 
-      <button className="generator__submit" type="submit" disabled={loading}>
-        {loading ? "Generating recipe..." : "Let's cook!"}
-      </button>
-      {loading && <img className="generator__loading" src={loadingSpinner} />}
-    </form>
+        <button className="generator__submit" type="submit" disabled={loading}>
+          {loading ? "Generating recipe..." : "Let's cook!"}
+        </button>
+        {loading && <img className="generator__loading" src={loadingSpinner} />}
+      </form>
+    </main>
   );
 }

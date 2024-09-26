@@ -14,7 +14,7 @@ export default function HomePage() {
         className="home__link home__link--saved-recipes"
         to="/recipes/saved"
       >
-        Favourited Recipes
+        Saved Recipes
       </Link>
     </main>
   );

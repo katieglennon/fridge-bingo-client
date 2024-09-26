@@ -1,10 +1,60 @@
 @use "../../styles/partials/colors" as *;
 
 .single-recipe {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+
+  &__name {
+    text-align: center;
+    margin-bottom: 0;
+  }
+
+  &__heading {
+    display: flex;
+  }
+
+  &__save-button {
+    display: block;
+    font-family: "VAG rounded";
+    letter-spacing: 0.25px;
+    border-radius: 12px;
+    border-width: 1px;
+    background-color: $background-dark;
+    color: $font-light;
+    border: none;
+    padding: 0.5rem;
+    width: 105px;
+    &:hover {
+      background-color: rgba(107, 127, 215);
+      cursor: pointer;
+    }
+
+    &--active {
+      background-color: rgba(107, 127, 215);
+    }
+  }
+
   &__save-indicator {
+    width: 1.5rem;
     &--true {
       filter: invert(39%) sepia(96%) saturate(7476%) hue-rotate(342deg)
         brightness(106%) contrast(126%);
     }
+  }
+  &__image {
+    width: 200px;
+  }
+
+  &__time {
+    // align-self: flex-start;
+  }
+}
+
+.app--dark {
+  .single-recipe__save-button {
+    background-color: $background-light;
+    color: $font-dark;
   }
 }

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { getRecipeDetails, saveRecipeRequest } from "../../utils/apiUtils";
 import RecipeInstructions from "../../components/RecipeInstructions/RecipeInstructions";
 import likeIcon from "../../assets/icons/likes.svg";
+import LetterHover from "../../components/LetterHover/LetterHover";
 
 export default function SingleRecipePage() {
   const [recipe, setRecipe] = useState(null);
@@ -48,20 +49,30 @@ export default function SingleRecipePage() {
 
   return (
     <main className="single-recipe">
-      <h1 className="single-recipe__name">{recipe.name}</h1>
-      <img
-        src={likeIcon}
-        alt=""
-        className={
-          isSaved
-            ? "single-recipe__save-indicator single-recipe__save-indicator--true"
-            : "single-recipe__save-indicator"
-        }
-      />
-      <button onClick={toggleSaveStatus} className="single-recipe__save">
+      <div className="single-recipe__heading">
+        {" "}
+        <h1 className="single-recipe__name">
+          <LetterHover text={recipe.name} />
+          <img
+            src={likeIcon}
+            alt=""
+            className={
+              isSaved
+                ? "single-recipe__save-indicator single-recipe__save-indicator--true"
+                : "single-recipe__save-indicator"
+            }
+          />
+        </h1>
+      </div>
+
+      <button onClick={toggleSaveStatus} className="single-recipe__save-button">
         {isSaved ? "Unsave Recipe" : "Save Recipe"}
       </button>
-      <img src="https://placehold.co/400" alt="" />
+      <img
+        className="single-recipe__image"
+        src="https://placehold.co/100"
+        alt=""
+      />
 
       <p className="single-recipe__time">{recipe.prep_time} minutes</p>
 

@@ -5,8 +5,16 @@
 .generator {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
 
+  &__heading {
+    text-align: center;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
   &__list {
     display: flex;
     flex-direction: column;
@@ -29,13 +37,13 @@
   }
 
   &__meal {
-    @include input-box;
     width: 100%;
+    @include input-box;
   }
 
   &__time {
-    @include input-box;
     width: 100%;
+    @include input-box;
   }
 
   &__submit {

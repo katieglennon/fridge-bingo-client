@@ -5,6 +5,7 @@ import InventoryItemCard from "../../components/InventoryItemCard/InventoryItemC
 import AddIngredientForm from "../../components/AddIngredientForm/AddIngredientForm";
 import Modal from "../../components/Modal/Modal";
 import SearchBar from "../../components/SearchBar/SearchBar";
+import LetterHover from "../../components/LetterHover/LetterHover";
 
 export default function InventoryPage() {
   const [inventoryStock, setInventoryStock] = useState(null);
@@ -70,7 +71,10 @@ export default function InventoryPage() {
 
   return (
     <main className="inventory">
-      <h1 className="inventory__heading">Explore your inventory</h1>
+      <h1 className="inventory__heading">
+        {" "}
+        <LetterHover text="Explore your Inventory" />
+      </h1>
       <button
         onClick={() => setIsModalOpen(true)}
         className="inventory__add-button"
