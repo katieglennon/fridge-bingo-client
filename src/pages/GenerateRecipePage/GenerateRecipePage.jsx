@@ -11,14 +11,21 @@ export default function GenerateRecipePage() {
   const [mealType, setMealType] = useState("");
   const [preparationTime, setPreparationTime] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isError, setIsError] = useState({
+    ingredientError: false,
+    mealTypeError: false,
+    prepTimeError: false,
+  });
+  const [formValidation, setFormValidation] = useState("");
 
   const navigate = useNavigate();
 
   const fetchInventoryData = async () => {
     try {
       const inventoryStock = await getInventoryList();
-      setInventoryStock(inventoryStock);
-      //   console.log(inventoryStock);
+      setInventoryStock(
+        inventoryStock.sort((a, b) => a.name.localeCompare(b.name))
+      );
     } catch (error) {
       console.error(error);
     }
@@ -42,14 +49,33 @@ export default function GenerateRecipePage() {
     } else {
       setSelectedIngredients([...selectedIngredients, item]);
     }
+
+    if (selectedIngredients.length >= 1) {
+      setIsError({ ...isError, ingredientError: false });
+      setFormValidation("");
+    }
   };
 
   const handleMealTypeChange = (event) => {
-    setMealType(event.target.value);
+    if (mealType !== "Select") {
+      setMealType(event.target.value);
+      setIsError({ ...isError, mealTypeError: false });
+      setFormValidation("");
+    }
   };
 
   const handlePreparationTimeChange = (event) => {
-    setPreparationTime(event.target.value);
+    const timeInMinutes = event.target.value;
+
+    setPreparationTime(timeInMinutes);
+
+    if (timeInMinutes) {
+      setIsError({ ...isError, prepTimeError: false });
+      setFormValidation("");
+    } else {
+      setIsError({ ...isError, prepTimeError: true });
+      setFormValidation("Preparation time is required.");
+    }
   };
 
   const handleSubmit = async (event) => {
@@ -60,6 +86,39 @@ export default function GenerateRecipePage() {
     const ingredients = selectedIngredients.map(
       (item) => `${item.name.toLowerCase()} ${item.quantity} ${item.unit}`
     );
+
+    if (selectedIngredients.length < 2) {
+      console.log("You must pick at least 2 ingredients");
+      setFormValidation("You must pick at least 2 ingredients");
+      setIsError({ ...isError, ingredientError: true });
+      return;
+    }
+
+    if (!mealType || mealType === "Select") {
+      setFormValidation("Please enter a meal type");
+      setIsError({ ...isError, mealTypeError: true });
+      return;
+    }
+
+    if (
+      preparationTime === "" ||
+      isNaN(preparationTime) ||
+      Number(preparationTime) <= 0
+    ) {
+      console.log("must be a number");
+      setFormValidation("Please enter the time you have available in minutes");
+      setIsError({
+        ...isError,
+        prepTimeError: true,
+      });
+      return;
+    }
+
+    setIsError({
+      ingredientError: false,
+      mealTypeError: false,
+      prepTimeError: false,
+    });
 
     const recipeRequestData = {
       ingredients,
@@ -80,25 +139,54 @@ export default function GenerateRecipePage() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <fieldset className="fieldset">
-        <legend>Choose ingredients</legend>
-        {inventoryStock
-          .filter((inventoryStockItem) => inventoryStockItem.quantity > 0)
-          .map((item) => (
-            <label key={item.id}>
-              {item.name} - {item.category} ({item.quantity} {item.unit})
-              <input
-                type="checkbox"
-                value={item.id}
-                onChange={() => handleCheckboxChange(item)}
-              />
-            </label>
-          ))}
+    <form className="generator" onSubmit={handleSubmit}>
+      <fieldset
+        className={`generator__fieldset ${
+          isError.ingredientError ? "generator__fieldset--error" : ""
+        }`}
+      >
+        <legend
+          className={`generator__legend ${
+            isError.ingredientError ? "generator__legend--error" : ""
+          }`}
+        >
+          Choose ingredients
+        </legend>
+        <div className="generator__list">
+          {inventoryStock
+            .filter((inventoryStockItem) => inventoryStockItem.quantity > 0)
+            .map((item) => (
+              <label className="generator__ingredient" key={item.id}>
+                <input
+                  name="checkedIngredient"
+                  className="generator__checkbox"
+                  type="checkbox"
+                  value={item.id}
+                  onChange={() => handleCheckboxChange(item)}
+                />
+                {item.name} - {item.quantity} {item.unit}
+              </label>
+            ))}
+        </div>
       </fieldset>
-      <fieldset>
-        <legend>What meal do you want to cook?</legend>
-        <select value={mealType} onChange={handleMealTypeChange}>
+      <fieldset
+        className={`generator__fieldset ${
+          isError.mealTypeError ? "generator__fieldset--error" : ""
+        }`}
+      >
+        <legend
+          className={`generator__legend ${
+            isError.mealTypeError ? "generator__legend--error" : ""
+          }`}
+        >
+          What meal do you want to cook?
+        </legend>
+        <select
+          name="mealType"
+          className="generator__meal"
+          value={mealType}
+          onChange={handleMealTypeChange}
+        >
           <option>Select</option>
           <option>snack</option>
           <option>breakfast</option>
@@ -107,18 +195,41 @@ export default function GenerateRecipePage() {
           <option>dessert</option>
         </select>
       </fieldset>
-      <fieldset>
-        <legend>How much time do you have?</legend>
+      <fieldset
+        className={`generator__fieldset ${
+          isError.prepTimeError ? "generator__fieldset--error" : ""
+        }`}
+      >
+        <legend
+          className={`generator__legend ${
+            isError.prepTimeError ? "generator__legend--error" : ""
+          }`}
+        >
+          How much time do you have?
+        </legend>
         <input
+          name="prepTime"
+          className="generator__time"
           type="text"
           value={preparationTime}
           onChange={handlePreparationTimeChange}
         />
       </fieldset>
-      <button type="submit" disabled={loading}>
+
+      <p
+        className={`generator__validation ${
+          Object.values(isError).some((error) => error)
+            ? "generator__validation--error"
+            : ""
+        }`}
+      >
+        {formValidation}
+      </p>
+
+      <button className="generator__submit" type="submit" disabled={loading}>
         {loading ? "Generating recipe..." : "Let's cook!"}
       </button>
-      {loading && <img className="gif" src={loadingSpinner} />}
+      {loading && <img className="generator__loading" src={loadingSpinner} />}
     </form>
   );
 }

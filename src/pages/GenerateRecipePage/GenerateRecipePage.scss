@@ -1,9 +1,67 @@
-.fieldset {
-  border: none;
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/colors" as *;
+@use "../../styles/partials/typography";
+
+.generator {
   display: flex;
   flex-direction: column;
-}
+  gap: 1rem;
 
-.gif {
-  width: 40px;
+  &__list {
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+    overflow-y: scroll;
+  }
+
+  &__fieldset {
+    border: 1px solid $neutral-gray;
+    border-radius: 12px;
+    &--error {
+      border: 2px solid $logo-orange;
+    }
+  }
+
+  &__legend {
+    &--error {
+      color: $logo-orange;
+    }
+  }
+
+  &__meal {
+    @include input-box;
+    width: 100%;
+  }
+
+  &__time {
+    @include input-box;
+    width: 100%;
+  }
+
+  &__submit {
+    width: 100%;
+    border-radius: 12px;
+    font-family: "VAG rounded";
+    background-color: $logo-green;
+    font-size: 1rem;
+    padding: 0.25rem;
+    border: none;
+    height: 1.6rem;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__loading {
+    width: 50px;
+    align-self: center;
+  }
+
+  &__validation {
+    margin: 0;
+    text-align: center;
+    &--error {
+      color: $logo-orange;
+    }
+  }
 }

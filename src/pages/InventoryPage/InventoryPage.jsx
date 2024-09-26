@@ -25,8 +25,9 @@ export default function InventoryPage() {
     fetchInventoryData();
   }, []);
 
-  const addNewItemToInventory = (newItem) => {
+  const addNewItemToInventory = async (newItem) => {
     setInventoryStock((prevInventory) => [...prevInventory, newItem]);
+    await fetchInventoryData();
   };
 
   if (!inventoryStock) {

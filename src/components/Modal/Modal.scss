@@ -30,12 +30,17 @@
     border: none;
     font-size: 20px;
     cursor: pointer;
+    color: $font-dark;
   }
 }
 
 .app--dark {
   .modal__content {
     background-color: $background-dark;
+    color: $font-light;
+  }
+
+  .modal__close {
     color: $font-light;
   }
 }

@@ -2,8 +2,12 @@ import "./InventoryItemCard.scss";
 import { useState, useEffect } from "react";
 
 export default function InventoryItemCard({ inventoryStockItem }) {
-  const expiryDate = new Date(inventoryStockItem.expiration_date);
-  const formattedExpiryDate = expiryDate.toLocaleDateString("en-GB");
+  const expiryDate = inventoryStockItem.expiration_date
+    ? new Date(inventoryStockItem.expiration_date)
+    : null;
+  const formattedExpiryDate = expiryDate
+    ? expiryDate.toLocaleDateString("en-GB")
+    : null;
   const [isExpired, setIsExpired] = useState(false);
   const [isExpiringSoon, setIsExpiringSoon] = useState(false);
 
@@ -21,10 +25,15 @@ export default function InventoryItemCard({ inventoryStockItem }) {
   const emoji = categoryEmojis[inventoryStockItem.category];
 
   useEffect(() => {
-    const today = new Date();
-    const daysTilExpiry = (expiryDate - today) / (1000 * 60 * 60 * 24);
-    setIsExpired(expiryDate < today);
-    setIsExpiringSoon(daysTilExpiry > 0 && daysTilExpiry <= 3);
+    if (expiryDate) {
+      const today = new Date();
+      const daysTilExpiry = (expiryDate - today) / (1000 * 60 * 60 * 24);
+      setIsExpired(expiryDate < today);
+      setIsExpiringSoon(daysTilExpiry > 0 && daysTilExpiry <= 3);
+    } else {
+      setIsExpired(false);
+      setIsExpiringSoon(false);
+    }
   }, [expiryDate]);
 
   return (
@@ -60,9 +69,11 @@ export default function InventoryItemCard({ inventoryStockItem }) {
             {inventoryStockItem.unit}
           </span>
         </div>
-        <span className="inventory-item-card__expiry">
-          Expires: {formattedExpiryDate}
-        </span>
+        {formattedExpiryDate && (
+          <span className="inventory-item-card__expiry">
+            Expires: {formattedExpiryDate}
+          </span>
+        )}
       </div>
     </article>
   );

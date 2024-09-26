@@ -72,22 +72,18 @@ export default function AddIngredient({
     const expirationDate = event.target.expirationDate.value;
 
     if (!itemName) {
-      console.log("Please enter a name for the item");
       setFormValidation("Please enter a name for the item");
       setIsError({ ...isError, itemNameError: true });
       return;
     }
 
     if (category === "Select") {
-      console.log("Please enter a category type");
       setFormValidation("Please enter a category type");
       setIsError({ ...isError, categoryError: true });
       return;
     }
 
     if (quantity === "" || isNaN(quantity) || Number(quantity) <= 0) {
-      console.log(typeof quantity);
-      console.log("Please enter a valid quantity. This must be a number");
       setFormValidation("Please enter a valid quantity. This must be a number");
       setIsError({
         ...isError,
@@ -97,7 +93,6 @@ export default function AddIngredient({
     }
 
     if (!unit || unit === "Select") {
-      console.log("Please select the unit");
       setFormValidation("Please select the unit");
       setIsError({
         ...isError,
@@ -124,7 +119,7 @@ export default function AddIngredient({
       category: category.toLowerCase().trim(),
       unit: unit.toLowerCase(),
       quantity: quantity,
-      expiration_date: expirationDate,
+      expiration_date: expirationDate === "" ? null : expirationDate,
       inventory_id: 1,
     };
     console.log(stockItemData);
