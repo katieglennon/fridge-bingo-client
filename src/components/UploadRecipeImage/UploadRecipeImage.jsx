@@ -1,7 +1,7 @@
-import axios from "axios";
 import { useState } from "react";
+import { addRecipeImage } from "../../utils/apiUtils";
 
-export default function UploadRecipeImage() {
+export default function UploadRecipeImage({ id }) {
   const [file, setFile] = useState(null);
 
   const handleFileChange = (e) => {
@@ -12,21 +12,7 @@ export default function UploadRecipeImage() {
     const formData = new FormData();
     formData.append("image", file);
 
-    try {
-      // Make a POST request to upload the file
-      const response = await axios.patch(
-        "http://localhost:3030/api/recipes/32/image",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      console.log("File uploaded successfully:", response.data);
-    } catch (error) {
-      console.error("Error uploading file:", error);
-    }
+    await addRecipeImage(id, formData);
   };
 
   return (

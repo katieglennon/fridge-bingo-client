@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import "./SingleRecipePage.scss";
 import { useEffect, useState } from "react";
 import { getRecipeDetails, saveRecipeRequest } from "../../utils/apiUtils";
@@ -9,9 +9,15 @@ import { Link } from "react-router-dom";
 import UploadRecipeImage from "../../components/UploadRecipeImage/UploadRecipeImage";
 
 export default function SingleRecipePage() {
+  const location = useLocation();
+  const { ingredients } = location.state || {};
+
   const [recipe, setRecipe] = useState(null);
   const [isSaved, setIsSaved] = useState(null);
   const { id } = useParams();
+  const apiUrl = import.meta.env.VITE_API_URL || `http://localhost:3030`;
+
+  console.log("Ingredients passed:", ingredients);
 
   const fetchRecipeData = async () => {
     try {
@@ -73,11 +79,11 @@ export default function SingleRecipePage() {
       </button>
       <img
         className="single-recipe__image"
-        src="https://placehold.co/100"
+        src={`${apiUrl}/${recipe.image}`}
         alt=""
       />
 
-      <UploadRecipeImage />
+      <UploadRecipeImage id={id} />
       <p className="single-recipe__time">{recipe.prep_time} minutes</p>
 
       <RecipeInstructions instructions={recipe.instructions} />

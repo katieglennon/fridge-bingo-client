@@ -96,3 +96,22 @@ export const deleteStockItem = async (id) => {
     throw new Error();
   }
 };
+
+export const addRecipeImage = async (recipeId, formData) => {
+  const config = {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  };
+
+  try {
+    const response = await axios.patch(
+      `${apiUrl}/api/recipes/${recipeId}/image`,
+      formData,
+      config
+    );
+    console.log("File uploaded successfully:", response.data);
+  } catch (error) {
+    console.error("Error uploading file:", error);
+  }
+};
