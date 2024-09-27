@@ -52,14 +52,6 @@ export default function RecipesPage() {
       : new Date(a.created_at) - new Date(b.created_at);
   });
 
-  // sort by created_at
-  //filter by meal type
-  // breakfast
-  // lunch 🥞
-  // dinner 🍝
-  // dessert
-  // snack 🍿
-
   return (
     <main className="recipes">
       <h1 className="recipes__heading">

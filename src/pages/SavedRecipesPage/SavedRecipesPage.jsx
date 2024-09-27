@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 
 export default function SavedRecipesPage() {
   const [savedRecipes, setSavedRecipes] = useState([]);
+  const [sortOrder, setSortOrder] = useState("highest");
 
   const noteColors = [
     "#ff3cc7",
@@ -38,8 +39,17 @@ export default function SavedRecipesPage() {
     fetchSavedRecipes();
   }, []);
 
-  // sort by rating
-  // add rating endpoint
+  const toggleSortOrder = () => {
+    setSortOrder((prevOrder) =>
+      prevOrder === "highest" ? "lowest" : "highest"
+    );
+  };
+
+  const sortedSavedRecipes = savedRecipes.sort((a, b) => {
+    return sortOrder === "highest"
+      ? new Date(b.rating) - new Date(a.rating)
+      : new Date(a.rating) - new Date(b.rating);
+  });
 
   return (
     <main className="saved-recipes">
@@ -47,7 +57,11 @@ export default function SavedRecipesPage() {
         <LetterHover text="Favourite Dishes" />
       </h1>
       <Link to="/recipes">View history</Link>
-      {savedRecipes.map((recipe) => {
+      <button onClick={toggleSortOrder} className="saved-recipes__sort-button">
+        Sort by Rating: {sortOrder === "highest" ? "Ascending" : "Descending"}
+      </button>
+
+      {sortedSavedRecipes.map((recipe) => {
         return (
           <Note
             key={recipe.id}
