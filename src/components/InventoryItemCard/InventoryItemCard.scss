@@ -1,4 +1,5 @@
 @use "../../styles/partials/colors" as *;
+@use "../../styles/partials/mixins" as *;
 
 .inventory-item-card {
   border: 1px solid black;
@@ -18,7 +19,14 @@
 
   &__header {
     display: flex;
-    justify-content: space-between;
+  }
+
+  &__expiring-soon-message {
+    margin-left: auto;
+  }
+
+  &__expired {
+    @extend .inventory-item-card__expiring-soon-message;
   }
 
   &__name {
@@ -29,5 +37,41 @@
   &__info {
     display: flex;
     justify-content: space-between;
+  }
+
+  &__amount-edits {
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+  }
+
+  &__cta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__edit-buttons {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  &__input {
+    // &--quantity {
+    //   width: 4rem;
+    // }
+
+    @include input-box;
+  }
+
+  &__button {
+    @include button($background-dark, $font-light);
+    padding: 0.25rem 0.5rem;
+  }
+}
+
+.app--dark {
+  .inventory-item-card__button {
+    @include button($background-light, $font-dark);
   }
 }

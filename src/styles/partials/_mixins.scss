@@ -29,6 +29,21 @@
   }
 }
 
-// @mixin full-screen {
-//   height: 100vh;
-// }
+@mixin button($background-color, $text-color) {
+  font-family: "VAG rounded";
+  letter-spacing: 0.25px;
+  border-radius: 6px;
+  border-width: 1px;
+  display: flex;
+  background-color: $background-color;
+  color: $text-color;
+  border: none;
+  &:hover {
+    background-color: rgba(107, 127, 215);
+    cursor: pointer;
+  }
+
+  &--active {
+    background-color: rgba(107, 127, 215);
+  }
+}

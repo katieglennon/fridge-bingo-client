@@ -87,3 +87,12 @@ export const editStockItem = async (id, stockItemData) => {
     throw new Error();
   }
 };
+
+export const deleteStockItem = async (id) => {
+  try {
+    await axios.delete(`${apiUrl}/api/inventory/${id}`);
+  } catch (error) {
+    console.error(error);
+    throw new Error();
+  }
+};

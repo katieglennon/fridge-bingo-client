@@ -1,4 +1,4 @@
-import { editStockItem } from "../../utils/apiUtils";
+import { deleteStockItem, editStockItem } from "../../utils/apiUtils";
 import "./InventoryItemCard.scss";
 import { useState, useEffect } from "react";
 
@@ -23,6 +23,7 @@ export default function InventoryItemCard({
   const [expirationDate, setExpirationDate] = useState(
     inventoryStockItem.expiration_date
   );
+  const [error, setError] = useState("");
 
   const categoryEmojis = {
     fruits: "🍎",
@@ -50,13 +51,23 @@ export default function InventoryItemCard({
   }, [expiryDate]);
 
   const handleSave = async () => {
+    if (!name || !quantity || !unit || !category) {
+      setError("All fields are required");
+      return;
+    }
+    if (isNaN(quantity) || quantity <= 0) {
+      setError("Quantity must be a positive number.");
+      return;
+    }
+    setError("");
+
     const updatedItem = {
       ...inventoryStockItem,
       name,
       quantity,
       unit,
       category,
-      expiration_date: expirationDate,
+      expiration_date: expirationDate || null,
     };
     console.log(updatedItem);
 
@@ -70,6 +81,20 @@ export default function InventoryItemCard({
     } catch (error) {
       console.error(
         "An error occurred while updapting the inventory item:",
+        error
+      );
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      await deleteStockItem(inventoryStockItem.id);
+      if (fetchInventoryData) {
+        await fetchInventoryData();
+      }
+    } catch (error) {
+      console.error(
+        "An error occurred while deleting the inventory item:",
         error
       );
     }
@@ -90,13 +115,13 @@ export default function InventoryItemCard({
         {isEditing ? (
           <>
             <input
-              className="inventory-item-card__input-name"
+              className="inventory-item-card__input inventory-item-card__input--name"
               type="text"
               value={name}
               onChange={(event) => setName(event.target.value)}
             />
             <select
-              className="inventory-item-card__input-category"
+              className="inventory-item-card__input inventory-item-card__input--category"
               value={category}
               onChange={(event) => setCategory(event.target.value)}
             >
@@ -131,13 +156,13 @@ export default function InventoryItemCard({
           {isEditing ? (
             <>
               <input
-                className="inventory-item-card__input-quantity"
+                className="inventory-item-card__input inventory-item-card__input--quantity"
                 type="number"
                 value={quantity}
                 onChange={(event) => setQuantity(event.target.value)}
               />
               <input
-                className="inventory-item-card__input-unit"
+                className="inventory-item-card__input inventory-item-card__input--unit"
                 type="text"
                 value={unit}
                 onChange={(event) => setUnit(event.target.value)}
@@ -145,10 +170,18 @@ export default function InventoryItemCard({
             </>
           ) : (
             <>
-              <span className="inventory-item-card__quantity">
+              <span
+                onClick={() => setIsEditing(true)}
+                className="inventory-item-card__quantity"
+              >
                 {`${quantity} `}
               </span>
-              <span className="inventory-item-card__unit">{unit}</span>
+              <span
+                onClick={() => setIsEditing(true)}
+                className="inventory-item-card__unit"
+              >
+                {unit}
+              </span>
             </>
           )}
         </div>
@@ -157,6 +190,7 @@ export default function InventoryItemCard({
           <div className="inventory-item-card__expiry-edit">
             <label>Expires:</label>
             <input
+              className="inventory-item-card__input inventory-item-card__input--edit"
               type="date"
               value={expirationDate ? expirationDate.substring(0, 10) : ""}
               onChange={(event) => {
@@ -167,25 +201,37 @@ export default function InventoryItemCard({
           </div>
         ) : (
           formattedExpiryDate && (
-            <span className="inventory-item-card__expiry">
+            <span
+              onClick={() => setIsEditing(true)}
+              className="inventory-item-card__expiry"
+            >
               Expires: {formattedExpiryDate}
             </span>
           )
         )}
       </div>
+      {error && <p className="inventory-item-card__error-message">{error}</p>}
       {isEditing && (
-        <div className="inventory-item-card__edit-buttons">
+        <div className="inventory-item-card__cta">
+          <div className="inventory-item-card__edit-buttons">
+            <button
+              className="inventory-item-card__button inventory-item-card__button--save"
+              onClick={handleSave}
+            >
+              Save
+            </button>
+            <button
+              className="inventory-item-card__button inventory-item-card__button--cancel"
+              onClick={() => setIsEditing(false)}
+            >
+              Cancel
+            </button>
+          </div>
           <button
-            className="inventory-item-card__save-button"
-            onClick={handleSave}
+            className="inventory-item-card__button inventory-item-card__button--delete"
+            onClick={handleDelete}
           >
-            Save
-          </button>
-          <button
-            className="inventory-item-card__cancel-button"
-            onClick={() => setIsEditing(false)}
-          >
-            Cancel
+            Remove Item
           </button>
         </div>
       )}
