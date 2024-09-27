@@ -5,6 +5,7 @@ import { getRecipeDetails, saveRecipeRequest } from "../../utils/apiUtils";
 import RecipeInstructions from "../../components/RecipeInstructions/RecipeInstructions";
 import likeIcon from "../../assets/icons/likes.svg";
 import LetterHover from "../../components/LetterHover/LetterHover";
+import { Link } from "react-router-dom";
 
 export default function SingleRecipePage() {
   const [recipe, setRecipe] = useState(null);
@@ -49,6 +50,7 @@ export default function SingleRecipePage() {
 
   return (
     <main className="single-recipe">
+      <Link to="/recipes">Back to all</Link>
       <div className="single-recipe__heading">
         {" "}
         <h1 className="single-recipe__name">

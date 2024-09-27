@@ -1,0 +1,58 @@
+@use "../../styles/partials/colors" as *;
+
+.recipes {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__time {
+    display: none;
+  }
+
+  &__list-item {
+    list-style: none;
+    padding: 1rem;
+    &:hover .recipes__time {
+      display: inline;
+    }
+  }
+
+  &__link {
+    text-decoration: none;
+    color: $font-dark;
+  }
+
+  &__filter-button {
+    font-family: "VAG rounded";
+    letter-spacing: 0.25px;
+    border-radius: 6px;
+    border-width: 1px;
+    display: flex;
+    background-color: $background-dark;
+    color: $font-light;
+    border: none;
+    &:hover {
+      background-color: rgba(107, 127, 215);
+      cursor: pointer;
+    }
+
+    &--active {
+      background-color: rgba(107, 127, 215);
+    }
+  }
+}
+
+.app--dark {
+  .recipes__filter-button {
+    background-color: $background-light;
+    color: $font-dark;
+
+    &--active {
+      background-color: rgba(107, 127, 215);
+    }
+  }
+  .recipes__link {
+    color: $font-light;
+  }
+}

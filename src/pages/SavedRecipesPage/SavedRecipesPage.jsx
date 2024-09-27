@@ -38,6 +38,9 @@ export default function SavedRecipesPage() {
     fetchSavedRecipes();
   }, []);
 
+  // sort by rating
+  // add rating endpoint
+
   return (
     <main className="saved-recipes">
       <h1 className="saved-recipes__heading">
