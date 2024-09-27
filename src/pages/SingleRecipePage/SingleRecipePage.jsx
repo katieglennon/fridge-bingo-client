@@ -6,6 +6,7 @@ import RecipeInstructions from "../../components/RecipeInstructions/RecipeInstru
 import likeIcon from "../../assets/icons/likes.svg";
 import LetterHover from "../../components/LetterHover/LetterHover";
 import { Link } from "react-router-dom";
+import UploadRecipeImage from "../../components/UploadRecipeImage/UploadRecipeImage";
 
 export default function SingleRecipePage() {
   const [recipe, setRecipe] = useState(null);
@@ -76,6 +77,7 @@ export default function SingleRecipePage() {
         alt=""
       />
 
+      <UploadRecipeImage />
       <p className="single-recipe__time">{recipe.prep_time} minutes</p>
 
       <RecipeInstructions instructions={recipe.instructions} />
