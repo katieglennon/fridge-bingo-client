@@ -83,7 +83,7 @@ export default function SingleRecipePage() {
         alt=""
       />
 
-      <UploadRecipeImage id={id} />
+      <UploadRecipeImage id={id} fetchRecipeData={fetchRecipeData} />
       <p className="single-recipe__time">{recipe.prep_time} minutes</p>
 
       <RecipeInstructions instructions={recipe.instructions} />
