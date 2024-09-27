@@ -6,6 +6,7 @@ export default function Note({ recipe, skewX, skewY, color }) {
     transform: `skew(${skewX}deg, ${skewY}deg)`,
     backgroundColor: color,
   };
+
   return (
     <>
       <Link className="note__link" to={`/recipes/${recipe.id}`}>
@@ -16,7 +17,11 @@ export default function Note({ recipe, skewX, skewY, color }) {
             <p className="note__time">{recipe.prep_time} minutes</p>
           </div>
           <img className="note__image" src="https://placehold.co/100" alt="" />
-          <p>⭐⭐⭐</p>
+          <p>
+            {Array.from({ length: recipe.rating }, (_, index) => (
+              <span key={index}>⭐</span>
+            ))}
+          </p>
         </article>
       </Link>
     </>

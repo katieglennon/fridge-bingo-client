@@ -35,9 +35,26 @@ export const sendRecipeRequest = async (recipeRequestData) => {
 
 export const saveRecipeRequest = async (recipeId, isSaved) => {
   try {
-    const response = await axios.patch(`${apiUrl}/api/recipes/${recipeId}`, {
-      is_saved: isSaved,
-    });
+    const response = await axios.patch(
+      `${apiUrl}/api/recipes/${recipeId}/save`,
+      {
+        is_saved: isSaved,
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const rateRecipeRequest = async (recipeId, rating) => {
+  try {
+    const response = await axios.patch(
+      `${apiUrl}/api/recipes/${recipeId}/rate`,
+      {
+        rating: rating,
+      }
+    );
     return response.data;
   } catch (error) {
     console.error(error);

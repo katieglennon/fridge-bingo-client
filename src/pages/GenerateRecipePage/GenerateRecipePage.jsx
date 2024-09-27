@@ -5,8 +5,11 @@ import { sendRecipeRequest } from "../../utils/apiUtils";
 import loadingSpinner from "../../assets/icons/loading.gif";
 import { useNavigate } from "react-router-dom";
 import LetterHover from "../../components/LetterHover/LetterHover";
+import AddIngredientForm from "../../components/AddIngredientForm/AddIngredientForm";
+import Modal from "../../components/Modal/Modal";
 
 export default function GenerateRecipePage() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [inventoryStock, setInventoryStock] = useState(null);
   const [selectedIngredients, setSelectedIngredients] = useState([]);
   const [mealType, setMealType] = useState("");
@@ -144,11 +147,26 @@ export default function GenerateRecipePage() {
     }
   };
 
+  const addNewItemToInventory = async (newItem) => {
+    setInventoryStock((prevInventory) => [...prevInventory, newItem]);
+    await fetchInventoryData();
+  };
+
   return (
     <main className="generator">
       <h1 className="generator__heading">
         <LetterHover text="Create a Culinary Masterpiece" />
       </h1>
+
+      <button onClick={() => setIsModalOpen(true)}>Add ingredient</button>
+
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <AddIngredientForm
+          setIsModalOpen={setIsModalOpen}
+          addNewItemToInventory={addNewItemToInventory}
+        />
+      </Modal>
+
       <form className="generator__form" onSubmit={handleSubmit}>
         <fieldset
           className={`generator__fieldset ${

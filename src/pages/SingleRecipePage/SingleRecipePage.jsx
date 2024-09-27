@@ -1,12 +1,17 @@
 import { useParams, useLocation } from "react-router-dom";
 import "./SingleRecipePage.scss";
 import { useEffect, useState } from "react";
-import { getRecipeDetails, saveRecipeRequest } from "../../utils/apiUtils";
+import {
+  getRecipeDetails,
+  rateRecipeRequest,
+  saveRecipeRequest,
+} from "../../utils/apiUtils";
 import RecipeInstructions from "../../components/RecipeInstructions/RecipeInstructions";
 import likeIcon from "../../assets/icons/likes.svg";
 import LetterHover from "../../components/LetterHover/LetterHover";
 import { Link } from "react-router-dom";
 import UploadRecipeImage from "../../components/UploadRecipeImage/UploadRecipeImage";
+import { Rating } from "react-simple-star-rating";
 
 export default function SingleRecipePage() {
   const location = useLocation();
@@ -15,6 +20,9 @@ export default function SingleRecipePage() {
   const [recipe, setRecipe] = useState(null);
   const [isSaved, setIsSaved] = useState(null);
   const { id } = useParams();
+  const [rating, setRating] = useState(0);
+  const [thanks, setThanks] = useState("");
+
   const apiUrl = import.meta.env.VITE_API_URL || `http://localhost:3030`;
 
   console.log("Ingredients passed:", ingredients);
@@ -23,7 +31,9 @@ export default function SingleRecipePage() {
     try {
       const recipeData = await getRecipeDetails(id);
       setRecipe(recipeData);
+      setRating(recipeData.rating);
       setIsSaved(recipeData.is_saved);
+      console.log(recipeData.rating);
     } catch (error) {
       console.error(error);
     }
@@ -51,6 +61,18 @@ export default function SingleRecipePage() {
     }
   };
 
+  const handleRating = async (rate) => {
+    setRating(rate);
+    setThanks("");
+    try {
+      await rateRecipeRequest(id, rate);
+      setThanks("Thanks for your rating!");
+      fetchRecipeData();
+    } catch (error) {
+      console.error("Error updating recipe rating", error);
+    }
+  };
+
   if (!recipe) {
     return <p>Loading...</p>;
   }
@@ -73,7 +95,6 @@ export default function SingleRecipePage() {
           />
         </h1>
       </div>
-
       <button onClick={toggleSaveStatus} className="single-recipe__save-button">
         {isSaved ? "Unsave Recipe" : "Save Recipe"}
       </button>
@@ -82,10 +103,16 @@ export default function SingleRecipePage() {
         src={`${apiUrl}/${recipe.image}`}
         alt=""
       />
-
+      <Rating
+        onClick={handleRating}
+        fillColor="#f1db4b"
+        initialValue={rating}
+      />
+      <p className="single-recipe__rating-status">
+        {thanks || "Rate this Plate"}
+      </p>
       <UploadRecipeImage id={id} fetchRecipeData={fetchRecipeData} />
       <p className="single-recipe__time">{recipe.prep_time} minutes</p>
-
       <RecipeInstructions instructions={recipe.instructions} />
     </main>
   );
