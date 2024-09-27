@@ -154,7 +154,7 @@ export default function InventoryItemCard({
       <div className="inventory-item-card__info">
         <div className="inventory-item-card__amount">
           {isEditing ? (
-            <>
+            <div className="inventory-item-card__amount-edits">
               <input
                 className="inventory-item-card__input inventory-item-card__input--quantity"
                 type="number"
@@ -167,7 +167,7 @@ export default function InventoryItemCard({
                 value={unit}
                 onChange={(event) => setUnit(event.target.value)}
               />
-            </>
+            </div>
           ) : (
             <>
               <span
