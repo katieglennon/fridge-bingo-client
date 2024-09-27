@@ -74,3 +74,16 @@ export const getAllRecipes = async () => {
     console.error(error);
   }
 };
+
+export const editStockItem = async (id, stockItemData) => {
+  try {
+    const response = await axios.patch(
+      `${apiUrl}/api/inventory/${id}`,
+      stockItemData
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error();
+  }
+};

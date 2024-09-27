@@ -112,6 +112,7 @@ export default function InventoryPage() {
               <InventoryItemCard
                 key={inventoryStockItem.id}
                 inventoryStockItem={inventoryStockItem}
+                fetchInventoryData={fetchInventoryData}
               />
             );
           })}
