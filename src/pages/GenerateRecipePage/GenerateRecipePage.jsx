@@ -156,7 +156,12 @@ export default function GenerateRecipePage() {
         <LetterHover text="Create a Culinary Masterpiece" />
       </h1>
 
-      <button onClick={() => setIsModalOpen(true)}>Add ingredient</button>
+      <button
+        className="generator__add-ingredient"
+        onClick={() => setIsModalOpen(true)}
+      >
+        Add more ingredients
+      </button>
 
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <AddIngredientForm
@@ -167,7 +172,7 @@ export default function GenerateRecipePage() {
 
       <form className="generator__form" onSubmit={handleSubmit}>
         <fieldset
-          className={`generator__fieldset ${
+          className={`generator__fieldset generator__fieldset--ingredients ${
             isError.ingredientError ? "generator__fieldset--error" : ""
           }`}
         >
@@ -195,8 +200,9 @@ export default function GenerateRecipePage() {
               ))}
           </div>
         </fieldset>
+
         <fieldset
-          className={`generator__fieldset ${
+          className={`generator__fieldset generator__fieldset--meal-type ${
             isError.mealTypeError ? "generator__fieldset--error" : ""
           }`}
         >
@@ -222,7 +228,7 @@ export default function GenerateRecipePage() {
           </select>
         </fieldset>
         <fieldset
-          className={`generator__fieldset ${
+          className={`generator__fieldset generator__fieldset--prep-time ${
             isError.prepTimeError ? "generator__fieldset--error" : ""
           }`}
         >

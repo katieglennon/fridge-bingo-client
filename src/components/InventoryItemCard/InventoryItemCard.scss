@@ -40,8 +40,7 @@
   }
 
   &__amount-edits {
-    // display: flex;
-    // flex-direction: row;
+    display: flex;
   }
 
   &__cta {
@@ -56,16 +55,31 @@
   }
 
   &__input {
-    // &--quantity {
-    //   width: 4rem;
-    // }
+    &--quantity {
+      width: 3rem;
+    }
+
+    &--unit {
+      width: 4rem;
+    }
 
     @include input-box;
+  }
+
+  &__error-message {
+    color: #d57034;
+    // background-color: $background-light;
+    width: fit-content;
   }
 
   &__button {
     @include button($background-dark, $font-light);
     padding: 0.25rem 0.5rem;
+    &--delete {
+      &:hover {
+        background-color: $logo-red;
+      }
+    }
   }
 }
 

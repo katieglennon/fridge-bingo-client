@@ -75,6 +75,7 @@ export default function InventoryPage() {
         {" "}
         <LetterHover text="Explore your Inventory" />
       </h1>
+      <p className="inventory__text">Click an item to edit</p>
       <button
         onClick={() => setIsModalOpen(true)}
         className="inventory__add-button"

@@ -8,13 +8,16 @@ export default function HomePage() {
         Check out Inventory
       </Link>
       <Link className="home__link home__link--new-recipe" to="/recipes/new">
-        Create new Meal
+        Build a New Recipe
       </Link>
       <Link
         className="home__link home__link--saved-recipes"
         to="/recipes/saved"
       >
         Saved Recipes
+      </Link>
+      <Link className="home__link home__link--all-recipes" to="/recipes">
+        All Recipes
       </Link>
     </main>
   );

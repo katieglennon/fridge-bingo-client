@@ -100,8 +100,14 @@ export const editStockItem = async (id, stockItemData) => {
     );
     return response.data;
   } catch (error) {
-    console.error(error);
-    throw new Error();
+    if (error.response) {
+      console.error("Error response data:", error.response.data);
+      console.error("Error response status:", error.response.status);
+      console.error("Error response headers:", error.response.headers);
+    } else {
+      console.error("Error message:", error.message);
+    }
+    throw new Error("Failed to edit stock item. Please try again later.");
   }
 };
 

@@ -10,6 +10,13 @@
     text-align: center;
   }
 
+  &__add-ingredient {
+    @include button($background-dark, $font-light);
+    width: fit-content;
+    margin-left: auto;
+    padding: 0.25rem;
+  }
+
   &__form {
     display: flex;
     flex-direction: column;
@@ -55,6 +62,7 @@
     padding: 0.25rem;
     border: none;
     height: 1.6rem;
+
     &:hover {
       cursor: pointer;
     }
@@ -68,8 +76,15 @@
   &__validation {
     margin: 0;
     text-align: center;
+
     &--error {
       color: $logo-orange;
     }
+  }
+}
+
+.app--dark {
+  .generator__add-ingredient {
+    @include button($background-light, $font-dark);
   }
 }

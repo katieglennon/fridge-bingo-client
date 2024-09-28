@@ -61,15 +61,18 @@ export default function InventoryItemCard({
     }
     setError("");
 
+    const formattedExpirationDate = expirationDate
+      ? expirationDate.substring(0, 10)
+      : null;
+
     const updatedItem = {
       ...inventoryStockItem,
       name,
       quantity,
       unit,
       category,
-      expiration_date: expirationDate || null,
+      expiration_date: formattedExpirationDate,
     };
-    console.log(updatedItem);
 
     try {
       await editStockItem(inventoryStockItem.id, updatedItem);
