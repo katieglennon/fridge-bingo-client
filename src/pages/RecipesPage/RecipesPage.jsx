@@ -109,7 +109,8 @@ export default function RecipesPage() {
             to={`/recipes/${recipe.id}`}
           >
             <li className="recipes__list-item">
-              {recipeEmoji} {recipe.name} <span>{recipe.meal_type}</span>
+              {recipeEmoji}{" "}
+              <span className="recipes__name">{recipe.name} </span>
               <span className="recipes__time"> ⏲️ {recipe.prep_time} mins</span>
             </li>
           </Link>
