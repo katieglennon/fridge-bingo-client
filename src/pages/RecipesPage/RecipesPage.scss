@@ -1,34 +1,38 @@
 @use "../../styles/partials/colors" as *;
+@use "../../styles/partials/mixins" as *;
 
 .recipes {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 1rem;
 
-  &__time {
-    display: none;
+  &__heading {
+    margin-bottom: 0.5rem;
   }
 
-  &__list-item {
-    list-style: none;
-    padding: 1rem;
-    &:hover .recipes__time {
-      display: inline;
+  &__saved {
+    margin: 0;
+    text-decoration: none;
+    color: $font-dark;
+    &:hover {
+      text-decoration: underline;
+      cursor: pointer;
     }
   }
 
-  &__link {
+  &__new {
     text-decoration: none;
-    color: $font-dark;
-  }
-
-  &__filter-button {
+    text-align: center;
+    width: 100%;
+    padding: 0.5rem;
     font-family: "VAG rounded";
-    letter-spacing: 0.25px;
-    border-radius: 6px;
+    font-size: 1.25rem;
+    border-radius: 12px;
     border-width: 1px;
-    display: flex;
+    letter-spacing: 0.5px;
+
     background-color: $background-dark;
     color: $font-light;
     border: none;
@@ -36,23 +40,78 @@
       background-color: rgba(107, 127, 215);
       cursor: pointer;
     }
+  }
 
-    &--active {
-      background-color: rgba(107, 127, 215);
+  &__sort-button {
+    @include button($background-dark, $font-light);
+    padding: 0.25rem;
+  }
+
+  &__time {
+    display: none;
+  }
+
+  &__list {
+    padding: 0;
+    gap: 1rem;
+  }
+
+  &__list-item {
+    list-style: none;
+    padding: 1rem;
+    border-radius: 12px;
+    border: 1px solid #969695;
+
+    &:hover {
+      border: 2px solid $logo-pink;
     }
+    &:hover .recipes__time {
+      display: inline;
+      color: $logo-green;
+    }
+  }
+
+  &__link {
+    text-decoration: none;
+    color: $font-dark;
+    width: 100%;
+  }
+
+  &__filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    justify-content: center;
+  }
+
+  &__filter-button {
+    @include button($background-dark, $font-light);
   }
 }
 
 .app--dark {
+  .recipes__sort-button {
+    @include button($background-light, $font-dark);
+  }
+
   .recipes__filter-button {
+    @include button($background-light, $font-dark);
+  }
+
+  .recipes__saved {
+    color: $font-light;
+  }
+
+  .recipes__list-item {
+    color: $font-light;
+  }
+
+  .recipes__new {
     background-color: $background-light;
     color: $font-dark;
-
-    &--active {
+    &:hover {
       background-color: rgba(107, 127, 215);
+      cursor: pointer;
     }
-  }
-  .recipes__link {
-    color: $font-light;
   }
 }
