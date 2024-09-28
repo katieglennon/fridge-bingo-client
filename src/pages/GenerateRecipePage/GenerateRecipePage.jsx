@@ -137,9 +137,7 @@ export default function GenerateRecipePage() {
     try {
       const responseData = await sendRecipeRequest(recipeRequestData);
       console.log(responseData);
-      navigate(`/recipes/${responseData.id}`, {
-        state: { ingredients: responseData.recipeIngredients },
-      });
+      navigate(`/recipes/${responseData.id}`);
     } catch (error) {
       console.error("An error occurred while generating the recipe:", error);
     } finally {

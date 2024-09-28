@@ -123,12 +123,26 @@ export const addRecipeImage = async (recipeId, formData) => {
 
   try {
     const response = await axios.patch(
-      `${apiUrl}/api/recipes/${recipeId}/image`,
+      `${apiUrl}/api/recipes/${recipeId}/image/upload`,
       formData,
       config
     );
     console.log("File uploaded successfully:", response.data);
   } catch (error) {
     console.error("Error uploading file:", error);
+  }
+};
+
+export const generateRecipeImageRequest = async (recipeId, prompt) => {
+  try {
+    const response = await axios.patch(
+      `${apiUrl}/api/recipes/${recipeId}/image/generate`,
+      {
+        prompt,
+      }
+    );
+    console.log("Image generated successfully", response.data);
+  } catch (error) {
+    console.error("Error generating image:", error);
   }
 };

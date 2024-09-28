@@ -1,4 +1,4 @@
-import { useParams, useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import "./SingleRecipePage.scss";
 import { useEffect, useState } from "react";
 import {
@@ -12,12 +12,11 @@ import LetterHover from "../../components/LetterHover/LetterHover";
 import { Link } from "react-router-dom";
 import UploadRecipeImage from "../../components/UploadRecipeImage/UploadRecipeImage";
 import { Rating } from "react-simple-star-rating";
+import GenerateRecipeImage from "../../components/GenerateRecipeImage/GenerateRecipeImage";
 
 export default function SingleRecipePage() {
-  const location = useLocation();
-  const { ingredients } = location.state || {};
-
   const [recipe, setRecipe] = useState(null);
+  const [recipeIngredients, setRecipeIngredients] = useState([]);
   const [isSaved, setIsSaved] = useState(null);
   const { id } = useParams();
   const [rating, setRating] = useState(0);
@@ -25,15 +24,13 @@ export default function SingleRecipePage() {
 
   const apiUrl = import.meta.env.VITE_API_URL || `http://localhost:3030`;
 
-  console.log("Ingredients passed:", ingredients);
-
   const fetchRecipeData = async () => {
     try {
       const recipeData = await getRecipeDetails(id);
-      setRecipe(recipeData);
-      setRating(recipeData.rating);
-      setIsSaved(recipeData.is_saved);
-      console.log(recipeData.rating);
+      setRecipe(recipeData.recipe);
+      setRecipeIngredients(recipeData.ingredients);
+      setRating(recipeData.recipe.rating);
+      setIsSaved(recipeData.recipe.is_saved);
     } catch (error) {
       console.error(error);
     }
@@ -77,6 +74,8 @@ export default function SingleRecipePage() {
     return <p>Loading...</p>;
   }
 
+  console.log(`${apiUrl}/${recipe.image}`);
+
   return (
     <main className="single-recipe">
       <Link to="/recipes">Back to all</Link>
@@ -98,11 +97,16 @@ export default function SingleRecipePage() {
       <button onClick={toggleSaveStatus} className="single-recipe__save-button">
         {isSaved ? "Unsave Recipe" : "Save Recipe"}
       </button>
-      <img
-        className="single-recipe__image"
-        src={`${apiUrl}/${recipe.image}`}
-        alt=""
-      />
+
+      {recipe.image && (
+        <img
+          className="single-recipe__image"
+          key={recipe.image}
+          src={`${apiUrl}/${recipe.image}`}
+          alt={`${recipe.name} dish`}
+        />
+      )}
+
       <Rating
         onClick={handleRating}
         fillColor="#f1db4b"
@@ -111,7 +115,16 @@ export default function SingleRecipePage() {
       <p className="single-recipe__rating-status">
         {thanks || "Rate this Plate"}
       </p>
+
+      <GenerateRecipeImage
+        recipe={recipe}
+        recipeIngredients={recipeIngredients}
+        fetchRecipeData={fetchRecipeData}
+        id={id}
+      />
+
       <UploadRecipeImage id={id} fetchRecipeData={fetchRecipeData} />
+
       <p className="single-recipe__time">{recipe.prep_time} minutes</p>
       <RecipeInstructions instructions={recipe.instructions} />
     </main>
