@@ -1,6 +1,38 @@
+@use "../../styles/partials/colors" as *;
+@use "../../styles/partials/mixins" as *;
+
 .saved-recipes {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 1rem;
   text-align: center;
+
+  &__heading {
+    margin-bottom: 0.5rem;
+  }
+  &__link {
+    margin: 0;
+    text-decoration: none;
+    color: $font-dark;
+    &:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+
+  &__sort-button {
+    @include button($background-dark, $font-light);
+    padding: 0.25rem;
+  }
+}
+
+.app--dark {
+  .saved-recipes__sort-button {
+    @include button($background-light, $font-dark);
+  }
+
+  .saved-recipes__link {
+    color: $font-light;
+  }
 }

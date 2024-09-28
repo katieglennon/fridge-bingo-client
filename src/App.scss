@@ -3,9 +3,9 @@
 @use "../src/styles/partials/mixins" as *;
 
 .app {
+  min-height: 100vh;
   background-color: $background-light;
   color: $background-dark;
-  // @include full-screen;
 
   &--dark {
     background-color: $background-dark;

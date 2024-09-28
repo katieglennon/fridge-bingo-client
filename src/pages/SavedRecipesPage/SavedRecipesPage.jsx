@@ -56,7 +56,9 @@ export default function SavedRecipesPage() {
       <h1 className="saved-recipes__heading">
         <LetterHover text="Favourite Dishes" />
       </h1>
-      <Link to="/recipes">View history</Link>
+      <Link className="saved-recipes__link" to="/recipes">
+        View history
+      </Link>
       <button onClick={toggleSortOrder} className="saved-recipes__sort-button">
         Sort by Rating: {sortOrder === "highest" ? "Ascending" : "Descending"}
       </button>
