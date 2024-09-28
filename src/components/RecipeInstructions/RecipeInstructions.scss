@@ -1,7 +1,16 @@
+@use "../../styles/partials/colors" as *;
+
 .instructions {
   margin: 0;
   &__step {
     margin: 0;
     line-height: 140%;
+    &:hover {
+      cursor: pointer;
+    }
+    &--complete {
+      text-decoration: line-through;
+      color: $neutral-gray;
+    }
   }
 }

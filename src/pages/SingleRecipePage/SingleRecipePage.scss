@@ -1,4 +1,5 @@
 @use "../../styles/partials/colors" as *;
+@use "../../styles/partials/mixins" as *;
 
 .single-recipe {
   display: flex;
@@ -13,48 +14,48 @@
 
   &__heading {
     display: flex;
+    max-width: 25rem;
   }
 
   &__save-button {
-    display: block;
-    font-family: "VAG rounded";
-    letter-spacing: 0.25px;
-    border-radius: 12px;
-    border-width: 1px;
-    background-color: $background-dark;
-    color: $font-light;
-    border: none;
+    @include button($background-dark, $font-light);
     padding: 0.5rem;
-    width: 105px;
-    &:hover {
-      background-color: rgba(107, 127, 215);
-      cursor: pointer;
-    }
-
-    &--active {
-      background-color: rgba(107, 127, 215);
-    }
+    border-radius: 12px;
   }
 
   &__save-indicator {
     width: 1.5rem;
+    &:hover {
+      cursor: pointer;
+    }
     &--true {
       filter: invert(39%) sepia(96%) saturate(7476%) hue-rotate(342deg)
         brightness(106%) contrast(126%);
     }
   }
   &__image {
-    width: 200px;
+    width: 250px;
   }
 
   &__rating-status {
     margin: 0;
   }
+
+  &__ingredients {
+    display: flex;
+    gap: 1rem;
+  }
+
+  &__ingredient-item {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .app--dark {
   .single-recipe__save-button {
-    background-color: $background-light;
-    color: $font-dark;
+    @include button($background-light, $font-dark);
+    padding: 0.5rem;
+    border-radius: 12px;
   }
 }

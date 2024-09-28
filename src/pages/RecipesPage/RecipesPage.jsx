@@ -84,7 +84,6 @@ export default function RecipesPage() {
               key={recipe.id}
               to={`/recipes/${recipe.id}`}
             >
-              {" "}
               <li className="recipes__list-item">
                 {recipe.name} <span>{recipe.meal_type}</span>
                 <span className="recipes__time">

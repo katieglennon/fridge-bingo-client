@@ -1,0 +1,17 @@
+@use "../../styles/partials/colors" as *;
+@use "../../styles/partials/mixins" as *;
+
+.expandable {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+
+  &__button {
+    @include button($background-dark, $font-light);
+    padding: 0.5rem;
+    border-radius: 12px;
+    width: fit-content;
+  }
+}

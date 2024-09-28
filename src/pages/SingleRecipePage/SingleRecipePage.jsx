@@ -9,10 +9,10 @@ import {
 import RecipeInstructions from "../../components/RecipeInstructions/RecipeInstructions";
 import likeIcon from "../../assets/icons/likes.svg";
 import LetterHover from "../../components/LetterHover/LetterHover";
-import { Link } from "react-router-dom";
 import UploadRecipeImage from "../../components/UploadRecipeImage/UploadRecipeImage";
 import { Rating } from "react-simple-star-rating";
 import GenerateRecipeImage from "../../components/GenerateRecipeImage/GenerateRecipeImage";
+import ExpandableContent from "../../components/ExpandableContent/ExpandableContent";
 
 export default function SingleRecipePage() {
   const [recipe, setRecipe] = useState(null);
@@ -74,11 +74,21 @@ export default function SingleRecipePage() {
     return <p>Loading...</p>;
   }
 
-  console.log(`${apiUrl}/${recipe.image}`);
+  const ingredientsContent = (
+    <div className="single-recipe__ingredients">
+      {recipeIngredients.map((ingredient) => (
+        <span className="single-recipe__ingredient-item" key={ingredient.id}>
+          {ingredient.name}
+          <span className="single-recipe__ingredient-amount">
+            ({ingredient.quantity} {ingredient.unit})
+          </span>
+        </span>
+      ))}
+    </div>
+  );
 
   return (
     <main className="single-recipe">
-      <Link to="/recipes">Back to all</Link>
       <div className="single-recipe__heading">
         {" "}
         <h1 className="single-recipe__name">
@@ -86,6 +96,7 @@ export default function SingleRecipePage() {
           <img
             src={likeIcon}
             alt=""
+            onClick={toggleSaveStatus}
             className={
               isSaved
                 ? "single-recipe__save-indicator single-recipe__save-indicator--true"
@@ -94,9 +105,6 @@ export default function SingleRecipePage() {
           />
         </h1>
       </div>
-      <button onClick={toggleSaveStatus} className="single-recipe__save-button">
-        {isSaved ? "Unsave Recipe" : "Save Recipe"}
-      </button>
 
       {recipe.image && (
         <img
@@ -107,15 +115,6 @@ export default function SingleRecipePage() {
         />
       )}
 
-      <Rating
-        onClick={handleRating}
-        fillColor="#f1db4b"
-        initialValue={rating}
-      />
-      <p className="single-recipe__rating-status">
-        {thanks || "Rate this Plate"}
-      </p>
-
       <GenerateRecipeImage
         recipe={recipe}
         recipeIngredients={recipeIngredients}
@@ -125,7 +124,19 @@ export default function SingleRecipePage() {
 
       <UploadRecipeImage id={id} fetchRecipeData={fetchRecipeData} />
 
+      <p className="single-recipe__rating-status">
+        {thanks || "Rate this Plate"}
+      </p>
+      <Rating
+        onClick={handleRating}
+        fillColor="#f1db4b"
+        initialValue={rating}
+      />
+
+      <ExpandableContent entity={"ingredients"} content={ingredientsContent} />
+
       <p className="single-recipe__time">{recipe.prep_time} minutes</p>
+
       <RecipeInstructions instructions={recipe.instructions} />
     </main>
   );

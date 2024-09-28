@@ -1,6 +1,7 @@
 import { useState } from "react";
 import loadingSpinner from "../../assets/icons/loading.gif";
 import { generateRecipeImageRequest } from "../../utils/apiUtils";
+import "./GenerateRecipeImage.scss";
 
 export default function GenerateRecipeImage({
   recipeIngredients,
@@ -31,11 +32,11 @@ export default function GenerateRecipeImage({
   };
 
   return (
-    <div>
-      <button onClick={handleImageGeneration}>Generate image</button>
-      {loading && (
-        <img className="single-recipe__loading" src={loadingSpinner} />
-      )}
+    <div className="ai-image">
+      {loading && <img className="ai-image__loading" src={loadingSpinner} />}
+      <button className="ai-image__button" onClick={handleImageGeneration}>
+        Generate Image
+      </button>
     </div>
   );
 }

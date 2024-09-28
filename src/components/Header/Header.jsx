@@ -44,6 +44,16 @@ export default function Header({ theme, handleClick }) {
                 : "header__nav-link"
             }
           >
+            Favourites
+          </NavLink>
+          <NavLink
+            to="/recipes"
+            className={({ isActive }) =>
+              isActive
+                ? "header__nav-link header__nav-link--active"
+                : "header__nav-link"
+            }
+          >
             Recipes
           </NavLink>
         </nav>

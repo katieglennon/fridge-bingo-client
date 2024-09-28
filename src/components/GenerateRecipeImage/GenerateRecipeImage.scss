@@ -1,0 +1,22 @@
+@use "../../styles/partials/colors" as *;
+@use "../../styles/partials/mixins" as *;
+
+.ai-image {
+  display: flex;
+  flex-direction: column;
+  &__button {
+    @include button($background-dark, $font-light);
+    padding: 0.5rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    align-self: center;
+  }
+}
+
+.app--dark {
+  .ai-image__button {
+    @include button($background-light, $font-dark);
+    padding: 0.5rem;
+    border-radius: 12px;
+  }
+}

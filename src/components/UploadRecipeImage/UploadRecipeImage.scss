@@ -1,0 +1,36 @@
+@use "../../styles/partials/colors" as *;
+@use "../../styles/partials/mixins" as *;
+
+#imageUpload {
+  display: none;
+}
+
+.upload {
+  display: flex;
+  //   flex-direction: column;
+  gap: 0.5rem;
+
+  &__select {
+    @include button($background-dark, $font-light);
+    align-self: center;
+    padding: 0.5rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+  }
+  &__send {
+    @extend .upload__select;
+    background-color: $logo-green;
+  }
+}
+
+.app--dark {
+  .upload__select {
+    @include button($background-light, $font-dark);
+    padding: 0.5rem;
+    border-radius: 12px;
+  }
+  .upload__send {
+    @extend .upload__select;
+    background-color: $logo-green;
+  }
+}
