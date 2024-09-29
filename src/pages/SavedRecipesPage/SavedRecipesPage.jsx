@@ -53,27 +53,36 @@ export default function SavedRecipesPage() {
 
   return (
     <main className="saved-recipes">
-      <h1 className="saved-recipes__heading">
-        <LetterHover text="Favourite Dishes" />
-      </h1>
-      <Link className="saved-recipes__link" to="/recipes">
-        View history
-      </Link>
-      <button onClick={toggleSortOrder} className="saved-recipes__sort-button">
-        Sort by Rating: {sortOrder === "highest" ? "Ascending" : "Descending"}
-      </button>
+      <div className="saved-recipes__header">
+        <div className="saved-recipes__header-links">
+          <h1 className="saved-recipes__heading">
+            <LetterHover text="Favourite Dishes" />
+          </h1>
+          <Link className="saved-recipes__link" to="/recipes">
+            View history
+          </Link>
+        </div>
+        <button
+          onClick={toggleSortOrder}
+          className="saved-recipes__sort-button"
+        >
+          Sort by Rating: {sortOrder === "highest" ? "Ascending" : "Descending"}
+        </button>
+      </div>
 
-      {sortedSavedRecipes.map((recipe) => {
-        return (
-          <Note
-            key={recipe.id}
-            recipe={recipe}
-            skewX={recipe.skewX}
-            skewY={recipe.skewY}
-            color={recipe.color}
-          />
-        );
-      })}
+      <div className="saved-recipes__list">
+        {sortedSavedRecipes.map((recipe) => {
+          return (
+            <Note
+              key={recipe.id}
+              recipe={recipe}
+              skewX={recipe.skewX}
+              skewY={recipe.skewY}
+              color={recipe.color}
+            />
+          );
+        })}
+      </div>
     </main>
   );
 }

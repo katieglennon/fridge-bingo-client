@@ -1,5 +1,6 @@
 @use "../../styles/partials/colors" as *;
 @use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/breakpoints" as *;
 
 .saved-recipes {
   display: flex;
@@ -8,9 +9,18 @@
   gap: 1rem;
   text-align: center;
 
-  &__heading {
-    margin-bottom: 0.5rem;
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    @include desktop {
+      margin-top: 0.5rem;
+      flex-direction: row;
+      justify-content: space-between;
+    }
   }
+
   &__link {
     margin: 0;
     text-decoration: none;
@@ -21,15 +31,41 @@
     }
   }
 
+  &__header-links {
+    display: flex;
+    flex-direction: column;
+    @include desktop {
+      flex-direction: row;
+      align-items: center;
+      gap: 1rem;
+    }
+  }
+
   &__sort-button {
-    @include button($background-dark, $font-light);
+    @include small-button-dark-bg;
     padding: 0.25rem;
+    width: fit-content;
+    align-self: center;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    @include tablet {
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    @include desktop {
+      justify-content: space-between;
+    }
   }
 }
 
 .app--dark {
   .saved-recipes__sort-button {
-    @include button($background-light, $font-dark);
+    @include small-button-light-bg;
   }
 
   .saved-recipes__link {
