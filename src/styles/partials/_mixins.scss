@@ -47,3 +47,64 @@
     background-color: rgba(107, 127, 215);
   }
 }
+
+@mixin magnet-box-light {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: #fcfcfd;
+  border-radius: 12px;
+  border-width: 0;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+  font-size: 1.5rem;
+  color: #36395a;
+  cursor: pointer;
+  height: 5rem;
+  overflow: hidden;
+  padding: 1rem;
+  position: relative;
+  text-decoration: none;
+  transition: box-shadow 0.15s, transform 0.15s;
+  will-change: box-shadow, transform;
+  &:focus {
+    box-shadow: #d6d6e7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px,
+      rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+  }
+
+  &:hover {
+    box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px,
+      rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    box-shadow: #d6d6e7 0 3px 7px inset;
+    transform: translateY(2px);
+  }
+}
+
+@mixin magnet-box-dark {
+  @extend magnet-box-light !optional;
+  color: #cfcfdf;
+  background-color: #1c1e2b;
+  box-shadow: rgba(210, 220, 240, 0.4) 0 2px 4px,
+    rgba(210, 220, 240, 0.3) 0 7px 13px -3px, #494970 0 -3px 0 inset;
+
+  &:focus {
+    box-shadow: #494970 0 0 0 1.5px inset, rgba(210, 220, 240, 0.4) 0 2px 4px,
+      rgba(210, 220, 240, 0.3) 0 7px 13px -3px, #494970 0 -3px 0 inset;
+  }
+
+  &:hover {
+    box-shadow: rgba(210, 220, 240, 0.4) 0 4px 8px,
+      rgba(210, 220, 240, 0.3) 0 7px 13px -3px, #494970 0 -3px 0 inset;
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    box-shadow: #494970 0 3px 7px inset;
+    transform: translateY(2px);
+  }
+}

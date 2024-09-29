@@ -39,11 +39,20 @@
     padding: 0.25rem;
     border: none;
     height: 1.6rem;
+    box-shadow: #422800 4px 4px 0 0;
     &:hover {
       cursor: pointer;
+      background-color: #08a97c;
+    }
+    &:active {
+      box-shadow: #422800 2px 2px 0 0;
+      transform: translate(2px, 2px);
     }
     &--cancel {
       background-color: $logo-red;
+      &:hover {
+        background-color: #df1010;
+      }
     }
   }
 }
