@@ -9,9 +9,17 @@
   gap: 0.5rem;
 
   &__button {
-    @include button($background-dark, $font-light);
+    @include small-button-dark-bg;
     padding: 0.5rem;
     border-radius: 12px;
     width: fit-content;
+  }
+}
+
+.app--dark {
+  .expandable__button {
+    @include small-button-light-bg;
+    padding: 1rem 0.5rem;
+    border-radius: 12px;
   }
 }

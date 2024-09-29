@@ -1,5 +1,6 @@
 @use "../../styles/partials/colors" as *;
 @use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/breakpoints" as *;
 
 .single-recipe {
   display: flex;
@@ -7,20 +8,77 @@
   align-items: center;
   gap: 1rem;
 
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    @include desktop {
+      flex-direction: row;
+    }
+  }
+
+  &__hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    @include tablet {
+      flex-direction: row;
+      justify-content: space-evenly;
+    }
+    @include desktop {
+      flex-direction: column;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &__method {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &__details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    @include tablet {
+      flex-direction: row;
+    }
+    @include desktop {
+      width: 100%;
+      justify-content: space-around;
+    }
+  }
+
   &__name {
-    text-align: center;
     margin-bottom: 0;
   }
 
   &__heading {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
     max-width: 25rem;
-  }
-
-  &__save-button {
-    @include button($background-dark, $font-light);
-    padding: 0.5rem;
-    border-radius: 12px;
+    @include tablet {
+      max-width: 100%;
+      flex-direction: row;
+      gap: 1rem;
+      align-items: baseline;
+    }
+    @include desktop {
+      width: 100%;
+      margin-top: 0.5rem;
+    }
   }
 
   &__save-indicator {
@@ -35,6 +93,9 @@
   }
   &__image {
     width: 250px;
+    @include desktop {
+      width: 300px;
+    }
   }
 
   &__rating-status {
@@ -49,13 +110,5 @@
   &__ingredient-item {
     display: flex;
     flex-direction: column;
-  }
-}
-
-.app--dark {
-  .single-recipe__save-button {
-    @include button($background-light, $font-dark);
-    padding: 0.5rem;
-    border-radius: 12px;
   }
 }

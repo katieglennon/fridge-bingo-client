@@ -11,7 +11,7 @@
   gap: 0.5rem;
 
   &__select {
-    @include button($background-dark, $font-light);
+    @include small-button-dark-bg;
     align-self: center;
     padding: 0.5rem;
     border-radius: 12px;
@@ -25,8 +25,8 @@
 
 .app--dark {
   .upload__select {
-    @include button($background-light, $font-dark);
-    padding: 0.5rem;
+    @include small-button-light-bg;
+    padding: 1rem 0.5rem;
     border-radius: 12px;
   }
   .upload__send {

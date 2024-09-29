@@ -90,54 +90,65 @@ export default function SingleRecipePage() {
   return (
     <main className="single-recipe">
       <div className="single-recipe__heading">
-        {" "}
         <h1 className="single-recipe__name">
           <LetterHover text={recipe.name} />
-          <img
-            src={likeIcon}
-            alt=""
-            onClick={toggleSaveStatus}
-            className={
-              isSaved
-                ? "single-recipe__save-indicator single-recipe__save-indicator--true"
-                : "single-recipe__save-indicator"
-            }
-          />
         </h1>
+        <img
+          src={likeIcon}
+          alt=""
+          onClick={toggleSaveStatus}
+          className={
+            isSaved
+              ? "single-recipe__save-indicator single-recipe__save-indicator--true"
+              : "single-recipe__save-indicator"
+          }
+        />
       </div>
 
-      {recipe.image && (
-        <img
-          className="single-recipe__image"
-          key={recipe.image}
-          src={`${apiUrl}/${recipe.image}`}
-          alt={`${recipe.name} dish`}
-        />
-      )}
+      <div className="single-recipe__content">
+        <div className="single-recipe__hero">
+          {recipe.image && (
+            <img
+              className="single-recipe__image"
+              key={recipe.image}
+              src={`${apiUrl}/${recipe.image}`}
+              alt={`${recipe.name} dish`}
+            />
+          )}
 
-      <GenerateRecipeImage
-        recipe={recipe}
-        recipeIngredients={recipeIngredients}
-        fetchRecipeData={fetchRecipeData}
-        id={id}
-      />
+          <div className="single-recipe__actions">
+            <GenerateRecipeImage
+              recipe={recipe}
+              recipeIngredients={recipeIngredients}
+              fetchRecipeData={fetchRecipeData}
+              id={id}
+            />
 
-      <UploadRecipeImage id={id} fetchRecipeData={fetchRecipeData} />
+            <UploadRecipeImage id={id} fetchRecipeData={fetchRecipeData} />
 
-      <p className="single-recipe__rating-status">
-        {thanks || "Rate this Plate"}
-      </p>
-      <Rating
-        onClick={handleRating}
-        fillColor="#f1db4b"
-        initialValue={rating}
-      />
+            <p className="single-recipe__rating-status">
+              {thanks || "Rate this Plate"}
+            </p>
+            <Rating
+              onClick={handleRating}
+              fillColor="#f1db4b"
+              initialValue={rating}
+            />
+          </div>
+        </div>
 
-      <ExpandableContent entity={"ingredients"} content={ingredientsContent} />
+        <div className="single-recipe__method">
+          <div className="single-recipe__details">
+            <ExpandableContent
+              entity={"ingredients"}
+              content={ingredientsContent}
+            />
+            <p className="single-recipe__time">{recipe.prep_time} minutes</p>
+          </div>
 
-      <p className="single-recipe__time">{recipe.prep_time} minutes</p>
-
-      <RecipeInstructions instructions={recipe.instructions} />
+          <RecipeInstructions instructions={recipe.instructions} />
+        </div>
+      </div>
     </main>
   );
 }
