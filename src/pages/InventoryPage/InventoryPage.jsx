@@ -121,10 +121,10 @@ export default function InventoryPage() {
       <section className="inventory__list">
         {sortedFilteredStock
           .filter((inventoryStockItem) => inventoryStockItem.quantity > 0)
-          .map((inventoryStockItem) => {
+          .map((inventoryStockItem, index) => {
             return (
               <InventoryItemCard
-                key={inventoryStockItem.id}
+                key={inventoryStockItem.id || index}
                 inventoryStockItem={inventoryStockItem}
                 fetchInventoryData={fetchInventoryData}
               />

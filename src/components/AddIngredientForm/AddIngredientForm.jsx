@@ -108,12 +108,6 @@ export default function AddIngredient({
       unitError: false,
     });
 
-    console.log("Item Name:", itemName);
-    console.log("Category:", category);
-    console.log("Expiration Date:", expirationDate);
-    console.log("Quantity:", quantity);
-    console.log("Unit of Measurement:", unit);
-
     const stockItemData = {
       name: itemName.toLowerCase().trim(),
       category: category.toLowerCase().trim(),
@@ -122,12 +116,10 @@ export default function AddIngredient({
       expiration_date: expirationDate === "" ? null : expirationDate,
       inventory_id: 1,
     };
-    console.log(stockItemData);
 
     try {
       const responseData = await addStockItem(stockItemData);
       setFormValidation("Item added!");
-      console.log(responseData);
       addNewItemToInventory(stockItemData);
       setTimeout(() => {
         setIsModalOpen(false);
