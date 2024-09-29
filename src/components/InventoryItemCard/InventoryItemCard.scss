@@ -73,6 +73,9 @@
   &__input {
     &--quantity {
       width: 3rem;
+      @include tablet {
+        width: 3.5rem;
+      }
     }
 
     &--unit {
