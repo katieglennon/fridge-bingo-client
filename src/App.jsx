@@ -2,7 +2,6 @@ import "./App.scss";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Header from "./components/Header/Header";
-// import AddIngredient from "./components/AddIngredientForm/AddIngredientForm";
 import GenerateRecipePage from "./pages/GenerateRecipePage/GenerateRecipePage";
 import HomePage from "./pages/HomePage/HomePage";
 import InventoryPage from "./pages/InventoryPage/InventoryPage";

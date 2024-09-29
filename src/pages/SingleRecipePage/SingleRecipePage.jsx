@@ -43,11 +43,8 @@ export default function SingleRecipePage() {
   }, [id]);
 
   const toggleSaveStatus = async () => {
-    console.log("toggling save status recipe Id", id);
-
     try {
       let newSavedStatus = !isSaved;
-      console.log("new save status:", newSavedStatus);
       await saveRecipeRequest(id, newSavedStatus);
       setIsSaved(newSavedStatus);
       fetchRecipeData();

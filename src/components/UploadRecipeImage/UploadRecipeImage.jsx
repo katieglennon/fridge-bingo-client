@@ -23,7 +23,6 @@ export default function UploadRecipeImage({ id, fetchRecipeData }) {
       fetchRecipeData();
       setFile(null);
       fileInputRef.current.value = null;
-      console.log(fileInputRef);
     } else {
       setFormValidation("Please select an image to upload");
     }

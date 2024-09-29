@@ -111,7 +111,6 @@ export default function GenerateRecipePage() {
       isNaN(preparationTime) ||
       Number(preparationTime) <= 0
     ) {
-      console.log("must be a number");
       setFormValidation("Please enter the time you have available in minutes");
       setIsError({
         ...isError,
@@ -132,11 +131,9 @@ export default function GenerateRecipePage() {
       mealType,
       preparationTime,
     };
-    console.log(recipeRequestData);
 
     try {
       const responseData = await sendRecipeRequest(recipeRequestData);
-      console.log(responseData);
       navigate(`/recipes/${responseData.id}`);
     } catch (error) {
       console.error("An error occurred while generating the recipe:", error);
