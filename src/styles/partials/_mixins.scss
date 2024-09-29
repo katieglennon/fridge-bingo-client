@@ -29,27 +29,9 @@
   }
 }
 
-@mixin button($background-color, $text-color) {
+@mixin magnet-box-light-static {
+  display: flex;
   font-family: "VAG rounded";
-  letter-spacing: 0.25px;
-  border-radius: 6px;
-  border-width: 1px;
-  display: flex;
-  background-color: $background-color;
-  color: $text-color;
-  border: none;
-  &:hover {
-    background-color: rgba(107, 127, 215);
-    cursor: pointer;
-  }
-
-  &--active {
-    background-color: rgba(107, 127, 215);
-  }
-}
-
-@mixin magnet-box-light {
-  display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
@@ -59,11 +41,32 @@
   box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,
     rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
   font-size: 1.5rem;
-  color: #36395a;
+  color: $font-dark;
   cursor: pointer;
   height: 5rem;
-  overflow: hidden;
   padding: 1rem;
+  z-index: 1;
+  position: relative;
+  text-decoration: none;
+}
+
+@mixin magnet-box-light-dynamic {
+  display: flex;
+  font-family: "VAG rounded";
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: #fcfcfd;
+  border-radius: 12px;
+  border-width: 0;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+  font-size: 1.5rem;
+  color: $font-dark;
+  cursor: pointer;
+  height: 5rem;
+  padding: 1rem;
+  z-index: 1;
   position: relative;
   text-decoration: none;
   transition: box-shadow 0.15s, transform 0.15s;
@@ -85,11 +88,19 @@
   }
 }
 
-@mixin magnet-box-dark {
-  @extend magnet-box-light !optional;
-  color: #cfcfdf;
+@mixin magnet-box-dark-static {
+  @extend magnet-box-light-static !optional;
+  color: $font-light;
   background-color: #2e2d2a;
-  // background-color: #1c1e2b;
+  box-shadow: rgba(210, 220, 240, 0.4) 0 2px 4px,
+    rgba(210, 220, 240, 0.3) 0 7px 13px -3px, #494970 0 -3px 0 inset;
+}
+
+@mixin magnet-box-dark-dynamic {
+  @extend magnet-box-light-dynamic !optional;
+  transition: box-shadow 0.15s, transform 0.15s;
+  color: $font-light;
+  background-color: #2e2d2a;
   box-shadow: rgba(210, 220, 240, 0.4) 0 2px 4px,
     rgba(210, 220, 240, 0.3) 0 7px 13px -3px, #494970 0 -3px 0 inset;
 
@@ -107,5 +118,67 @@
   &:active {
     box-shadow: #494970 0 3px 7px inset;
     transform: translateY(2px);
+  }
+}
+
+@mixin large-button-dark-bg {
+  @include magnet-box-dark-dynamic;
+  padding: 0.5rem;
+  font-family: "VAG rounded";
+  font-size: 1.25rem;
+  border-radius: 12px;
+  letter-spacing: 0.5px;
+  &:hover {
+    background-color: rgba(107, 127, 215);
+    cursor: pointer;
+  }
+}
+
+@mixin small-button-dark-bg {
+  @include large-button-dark-bg;
+  font-size: 0.8rem;
+  letter-spacing: 0.25px;
+  border-radius: 6px;
+  border-width: 1px;
+  padding: 0 0.25rem;
+}
+
+@mixin large-button-light-bg {
+  @include magnet-box-light-dynamic;
+  height: 40px;
+  font-size: 1.25rem;
+  &:hover {
+    background-color: rgba(107, 127, 215);
+    cursor: pointer;
+  }
+}
+
+@mixin small-button-light-bg {
+  @include large-button-light-bg;
+  font-size: 0.8rem;
+  letter-spacing: 0.25px;
+  border-radius: 6px;
+  border-width: 1px;
+  height: 23px;
+  padding: 0 0.25rem;
+}
+
+// DELETE
+@mixin button($background-color, $text-color) {
+  font-family: "VAG rounded";
+  letter-spacing: 0.25px;
+  border-radius: 6px;
+  border-width: 1px;
+  display: flex;
+  background-color: $background-color;
+  color: $text-color;
+  border: none;
+  &:hover {
+    background-color: rgba(107, 127, 215);
+    cursor: pointer;
+  }
+
+  &--active {
+    background-color: rgba(107, 127, 215);
   }
 }

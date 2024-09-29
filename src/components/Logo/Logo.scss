@@ -7,6 +7,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+
   @include tablet {
     flex-direction: row;
     align-items: flex-end;
@@ -25,6 +26,10 @@
     font-size: 3rem;
     font-family: "VAG rounded";
     letter-spacing: 1px;
+    transition: transform 0.2s ease-in-out;
+    &:hover {
+      animation: shake 0.3s ease-in-out infinite;
+    }
 
     &--f {
       color: $logo-orange;
@@ -57,9 +62,34 @@
     width: 142px;
     font-size: 2.2rem;
     color: $font-dark;
+    transition: transform 0.2s ease-in-out;
     @include tablet {
       margin-left: 1rem;
     }
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
+
+@keyframes shake {
+  0% {
+    transform: translate(0px, 0px) rotate(0deg);
+  }
+  20% {
+    transform: translate(-1px, 1px) rotate(-5deg);
+  }
+  40% {
+    transform: translate(1px, -1px) rotate(5deg);
+  }
+  60% {
+    transform: translate(-1px, 1px) rotate(-5deg);
+  }
+  80% {
+    transform: translate(1px, -1px) rotate(5deg);
+  }
+  100% {
+    transform: translate(0px, 0px) rotate(0deg);
   }
 }
 

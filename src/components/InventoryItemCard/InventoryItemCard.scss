@@ -2,12 +2,12 @@
 @use "../../styles/partials/mixins" as *;
 
 .inventory-item-card {
-  border: 1px solid black;
-  padding: 1rem;
+  @include magnet-box-light-static;
   display: flex;
   flex-direction: column;
-  border-radius: 12px;
-  border: 1px solid $neutral-gray;
+  font-size: 1rem;
+  align-items: normal;
+  height: fit-content;
 
   &--expiring-soon {
     background-color: rgba(241, 219, 75, 0.5);
@@ -19,6 +19,8 @@
 
   &__header {
     display: flex;
+    align-items: center;
+    margin-bottom: 0.25rem;
   }
 
   &__expiring-soon-message {
@@ -69,12 +71,11 @@
 
   &__error-message {
     color: #d57034;
-    // background-color: $background-light;
     width: fit-content;
   }
 
   &__button {
-    @include button($background-dark, $font-light);
+    @include small-button-dark-bg;
     padding: 0.25rem 0.5rem;
     &--delete {
       &:hover {
@@ -85,7 +86,19 @@
 }
 
 .app--dark {
+  .inventory-item-card {
+    @include magnet-box-dark-static;
+    &--expiring-soon {
+      background-color: rgba(241, 219, 75, 0.5);
+    }
+
+    &--expired {
+      background-color: rgba(248, 18, 18, 0.5);
+    }
+  }
+
   .inventory-item-card__button {
-    @include button($background-light, $font-dark);
+    @include small-button-light-bg;
+    padding: 0 0.5rem;
   }
 }

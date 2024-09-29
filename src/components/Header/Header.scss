@@ -9,6 +9,8 @@
   background-color: #dfe0e1;
   border-bottom: 1px solid $neutral-gray;
   margin-bottom: 2rem;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
 
   &--dark {
     background-color: $background-dark;
@@ -34,6 +36,11 @@
     background-color: transparent;
     margin-right: 1rem;
     margin-top: 1rem;
+    transition: transform 0.5s ease-in-out;
+    &:hover {
+      cursor: pointer;
+      transform: rotate(360deg);
+    }
     &--dark {
       filter: invert(1);
     }
@@ -54,6 +61,7 @@
     display: flex;
     justify-content: space-between;
     padding: 1rem;
+
     @include tablet {
       padding: 1rem 2rem;
     }
@@ -65,9 +73,11 @@
   &__nav-link {
     text-decoration: none;
     color: $font-dark;
+    transition: letter-spacing 0.2s ease-in-out;
     &:hover {
       cursor: pointer;
       text-decoration: underline;
+      letter-spacing: 1px;
     }
 
     &--active {
@@ -83,5 +93,7 @@
 
   .header {
     background-color: #292825;
+    box-shadow: rgba(210, 220, 240, 0.4) 0 2px 4px,
+      rgba(210, 220, 240, 0.3) 0 7px 13px -3px, #494970 0 -3px 0 inset;
   }
 }

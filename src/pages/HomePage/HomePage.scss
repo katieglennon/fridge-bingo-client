@@ -7,7 +7,7 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  margin-top: 2rem;
+  padding-top: 1.5rem;
 
   @include container-spacing;
 
@@ -22,7 +22,7 @@
       width: 45%;
       height: 10rem;
     }
-    @include magnet-box-light;
+    @include magnet-box-light-dynamic;
     &:hover {
       font-family: "Bungee shade";
     }
@@ -31,6 +31,6 @@
 
 .app--dark {
   .home__link {
-    @include magnet-box-dark;
+    @include magnet-box-dark-dynamic;
   }
 }
