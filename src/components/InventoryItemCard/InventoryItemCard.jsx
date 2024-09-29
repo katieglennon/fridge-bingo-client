@@ -191,7 +191,7 @@ export default function InventoryItemCard({
 
         {isEditing ? (
           <div className="inventory-item-card__expiry-edit">
-            <label>Expires:</label>
+            <label className="inventory-item-card__label">Expires:</label>
             <input
               className="inventory-item-card__input inventory-item-card__input--edit"
               type="date"

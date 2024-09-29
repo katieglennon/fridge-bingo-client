@@ -71,32 +71,45 @@ export default function InventoryPage() {
 
   return (
     <main className="inventory">
-      <h1 className="inventory__heading">
-        {" "}
-        <LetterHover text="Explore your Inventory" />
-      </h1>
-      <p className="inventory__text">Click an item to edit</p>
-      <button
-        onClick={() => setIsModalOpen(true)}
-        className="inventory__add-button"
-      >
-        Add to inventory
-      </button>
-
-      <SearchBar handleSearchInput={handleSearchInput} />
-
-      <div className="inventory__filter">
-        {categories.map(({ name, emoji }) => (
+      <header className="inventory__header">
+        <h1 className="inventory__heading">
+          {" "}
+          <LetterHover text="Explore your Inventory" />
+        </h1>
+        <p className="inventory__text">Click an item to edit</p>
+        <div className="inventory__actions">
           <button
-            key={name}
-            onClick={() => handleCategorySelection(name)}
-            className={`inventory__filter-button ${
-              categoryFilter === name ? "inventory__filter-button--active" : ""
-            }`}
+            onClick={() => setIsModalOpen(true)}
+            className="inventory__add-button"
           >
-            {name} {emoji}
+            Add to inventory
           </button>
-        ))}
+
+          <SearchBar
+            className="inventory__search"
+            handleSearchInput={handleSearchInput}
+          />
+        </div>
+      </header>
+      <div className="inventory__filter-container">
+        <p className="inventory__text inventory__text--show-on-large">
+          Click an item to edit
+        </p>
+        <div className="inventory__filter">
+          {categories.map(({ name, emoji }) => (
+            <button
+              key={name}
+              onClick={() => handleCategorySelection(name)}
+              className={`inventory__filter-button ${
+                categoryFilter === name
+                  ? "inventory__filter-button--active"
+                  : ""
+              }`}
+            >
+              {name} {emoji}
+            </button>
+          ))}
+        </div>
       </div>
 
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>

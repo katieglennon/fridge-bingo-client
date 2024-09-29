@@ -1,5 +1,6 @@
 @use "../../styles/partials/colors" as *;
 @use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/breakpoints" as *;
 
 .inventory-item-card {
   @include magnet-box-light-static;
@@ -8,6 +9,12 @@
   font-size: 1rem;
   align-items: normal;
   height: fit-content;
+  @include tablet {
+    width: calc(50% - 0.5rem);
+  }
+  @include desktop {
+    width: calc((100% / 3) - (0.7rem));
+  }
 
   &--expiring-soon {
     background-color: rgba(241, 219, 75, 0.5);
@@ -15,6 +22,12 @@
 
   &--expired {
     background-color: rgba(248, 18, 18, 0.5);
+  }
+
+  &__label {
+    @include desktop {
+      display: none;
+    }
   }
 
   &__header {

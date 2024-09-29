@@ -1,29 +1,83 @@
 @use "../../styles/partials/colors" as *;
 @use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/breakpoints" as *;
 
 .inventory {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    @include desktop {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.5rem;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    @include tablet {
+      flex-direction: row;
+    }
+    @include desktop {
+      height: 40px;
+    }
+  }
+
   &__heading {
     text-align: center;
     margin-bottom: 0.5rem;
+    @include desktop {
+      text-align: left;
+      margin: 0;
+    }
   }
 
   &__text {
     margin: 0;
     text-align: center;
+    @include desktop {
+      display: none;
+    }
+    &--show-on-large {
+      display: none;
+      @include desktop {
+        display: flex;
+      }
+    }
   }
 
   &__list {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    @include tablet {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
   }
 
   &__add-button {
     @include large-button-dark-bg;
+    width: 100%;
+    @include desktop {
+      width: 50%;
+    }
+  }
+
+  &__filter-container {
+    @include desktop {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
   }
 
   &__filter {
@@ -31,6 +85,7 @@
     flex-wrap: wrap;
     gap: 0.25rem;
     justify-content: center;
+    align-items: center;
   }
   &__filter-button {
     @include small-button-dark-bg;
