@@ -56,3 +56,14 @@
     }
   }
 }
+
+.app--dark {
+  .add-ingredient__button {
+    box-shadow: #cfcfdf 4px 4px 0 0;
+
+    &:active {
+      box-shadow: #cfcfdf 2px 2px 0 0;
+      transform: translate(2px, 2px);
+    }
+  }
+}

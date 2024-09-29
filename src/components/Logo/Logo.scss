@@ -10,6 +10,10 @@
   @include tablet {
     flex-direction: row;
     align-items: flex-end;
+    padding-left: 2rem;
+  }
+  @include desktop {
+    padding-left: 4rem;
   }
   &__fridge {
     margin: 0;
@@ -53,6 +57,9 @@
     width: 142px;
     font-size: 2.2rem;
     color: $font-dark;
+    @include tablet {
+      margin-left: 1rem;
+    }
   }
 }
 

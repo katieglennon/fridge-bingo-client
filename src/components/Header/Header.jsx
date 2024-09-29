@@ -1,21 +1,24 @@
 import "./Header.scss";
 import Logo from "../Logo/Logo";
 import { Link, NavLink } from "react-router-dom";
+import LetterHover from "../LetterHover/LetterHover";
 
 export default function Header({ theme, handleClick }) {
   return (
     <>
       <header className={`header ${theme === "dark" ? "header--dark" : ""}`}>
-        <button
-          className={`header__btn ${
-            theme === "dark" ? "header__btn--dark" : ""
-          }`}
-          onClick={handleClick}
-        ></button>
-        <Link className="header__logo-link" to="/">
-          <Logo />
-        </Link>
-        <nav>
+        <div className="header__container">
+          <button
+            className={`header__btn ${
+              theme === "dark" ? "header__btn--dark" : ""
+            }`}
+            onClick={handleClick}
+          ></button>
+          <Link className="header__logo-link" to="/">
+            <Logo />
+          </Link>
+        </div>
+        <nav className="header__nav">
           <NavLink
             to="/inventory"
             className={({ isActive }) =>
@@ -24,7 +27,7 @@ export default function Header({ theme, handleClick }) {
                 : "header__nav-link"
             }
           >
-            Inventory
+            <LetterHover text="Inventory" />
           </NavLink>
           <NavLink
             to="/recipes/new"
@@ -34,7 +37,7 @@ export default function Header({ theme, handleClick }) {
                 : "header__nav-link"
             }
           >
-            Recipe Generator
+            <LetterHover text="Recipe Generator" />
           </NavLink>
           <NavLink
             to="/recipes/saved"
@@ -44,7 +47,7 @@ export default function Header({ theme, handleClick }) {
                 : "header__nav-link"
             }
           >
-            Favourites
+            <LetterHover text="Favourites" />
           </NavLink>
           <NavLink
             to="/recipes"
@@ -55,7 +58,7 @@ export default function Header({ theme, handleClick }) {
                 : "header__nav-link"
             }
           >
-            Recipes
+            <LetterHover text="Recipes" />
           </NavLink>
         </nav>
       </header>

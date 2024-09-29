@@ -1,13 +1,27 @@
 @use "../../styles/partials/colors" as *;
 @use "../../styles/partials/mixins" as *;
 @use "../../styles/partials/typography";
+@use "../../styles/partials/breakpoints" as *;
 
 .home {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  margin-top: 2rem;
+
+  @include container-spacing;
+
+  @include tablet {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 
   &__link {
+    @include tablet {
+      width: 45%;
+      height: 10rem;
+    }
     @include magnet-box-light;
     &:hover {
       font-family: "Bungee shade";

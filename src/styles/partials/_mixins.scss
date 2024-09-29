@@ -88,7 +88,8 @@
 @mixin magnet-box-dark {
   @extend magnet-box-light !optional;
   color: #cfcfdf;
-  background-color: #1c1e2b;
+  background-color: #2e2d2a;
+  // background-color: #1c1e2b;
   box-shadow: rgba(210, 220, 240, 0.4) 0 2px 4px,
     rgba(210, 220, 240, 0.3) 0 7px 13px -3px, #494970 0 -3px 0 inset;
 

@@ -5,12 +5,23 @@
 .header {
   display: flex;
   flex-direction: column;
-  background-color: $background-light;
-  @include container-spacing;
+  // background-color: $background-light;
+  background-color: #dfe0e1;
+  border-bottom: 1px solid $neutral-gray;
+  margin-bottom: 2rem;
 
   &--dark {
     background-color: $background-dark;
     color: $font-light;
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    @include tablet {
+      flex-direction: row;
+      padding: 1rem 0;
+    }
   }
 
   &__btn {
@@ -21,8 +32,17 @@
     height: 32px;
     border: none;
     background-color: transparent;
+    margin-right: 1rem;
+    margin-top: 1rem;
     &--dark {
       filter: invert(1);
+    }
+    @include tablet {
+      order: 1;
+      margin-top: 0;
+      margin-left: auto;
+      align-self: flex-start;
+      margin-right: 1rem;
     }
   }
 
@@ -30,6 +50,18 @@
     text-decoration: none;
   }
 
+  &__nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    @include tablet {
+      padding: 1rem 2rem;
+    }
+    @include desktop {
+      width: 50%;
+      padding: 1rem 4rem;
+    }
+  }
   &__nav-link {
     text-decoration: none;
     color: $font-dark;
@@ -47,5 +79,9 @@
 .app--dark {
   .header__nav-link {
     color: $font-light;
+  }
+
+  .header {
+    background-color: #292825;
   }
 }
