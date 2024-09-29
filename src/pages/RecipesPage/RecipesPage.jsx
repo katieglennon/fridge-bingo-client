@@ -68,38 +68,45 @@ export default function RecipesPage() {
 
   return (
     <main className="recipes">
-      <h1 className="recipes__heading">
-        <LetterHover text="Recipe Collection" />
-      </h1>
-      <Link className="recipes__saved" to="/recipes/saved">
-        View saved
-      </Link>
+      <header className="recipes__header">
+        <div className="recipes__header-links">
+          <h1 className="recipes__heading">
+            <LetterHover text="Recipe Collection" />
+          </h1>
+          <Link className="recipes__saved" to="/recipes/saved">
+            View saved
+          </Link>
+        </div>
 
-      <Link className="recipes__new" to="/recipes/new">
-        Create new Recipe
-      </Link>
+        <div className="recipes__actions">
+          <Link className="recipes__new" to="/recipes/new">
+            Create new Recipe
+          </Link>
 
-      <SearchBar handleSearchInput={handleSearchInput} />
+          <SearchBar handleSearchInput={handleSearchInput} />
+        </div>
+      </header>
 
-      <div className="recipes__filter">
-        {types.map(({ name, emoji }) => (
-          <button
-            key={name}
-            onClick={() => handleTypeSelection(name)}
-            className={`recipes__filter-button ${
-              typeFilter === name ? "recipes__filter-button--active" : ""
-            }`}
-          >
-            {name} {emoji}
-          </button>
-        ))}
+      <div className="recipes__organising">
+        <div className="recipes__filter">
+          {types.map(({ name, emoji }) => (
+            <button
+              key={name}
+              onClick={() => handleTypeSelection(name)}
+              className={`recipes__filter-button ${
+                typeFilter === name ? "recipes__filter-button--active" : ""
+              }`}
+            >
+              {name} {emoji}
+            </button>
+          ))}
+        </div>
+
+        <button onClick={toggleSortOrder} className="recipes__sort-button">
+          Sort by:{" "}
+          {sortOrder === "newest" ? "Oldest to Newest" : "Newest to Oldest"}
+        </button>
       </div>
-
-      <button onClick={toggleSortOrder} className="recipes__sort-button">
-        Sort by:{" "}
-        {sortOrder === "newest" ? "Oldest to Newest" : "Newest to Oldest"}
-      </button>
-
       {sortedFilteredRecipes.map((recipe) => {
         const recipeEmoji = emojiMapping[recipe.meal_type] || "";
         return (

@@ -1,5 +1,6 @@
 @use "../../styles/partials/colors" as *;
 @use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/breakpoints" as *;
 
 .recipes {
   display: flex;
@@ -8,8 +9,40 @@
   align-items: center;
   gap: 1rem;
 
-  &__heading {
-    margin-bottom: 0.5rem;
+  &__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    @include desktop {
+      flex-direction: row;
+      margin-top: 0.5rem;
+    }
+  }
+
+  &__header-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    @include desktop {
+      flex-direction: row;
+      gap: 1rem;
+    }
+  }
+
+  &__actions {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    @include tablet {
+      flex-direction: row;
+    }
+    @include desktop {
+      margin-left: auto;
+      width: 50%;
+    }
   }
 
   &__saved {
@@ -23,28 +56,26 @@
   }
 
   &__new {
+    @include large-button-dark-bg;
     text-decoration: none;
     text-align: center;
-    width: 100%;
-    padding: 0.5rem;
-    font-family: "VAG rounded";
-    font-size: 1.25rem;
-    border-radius: 12px;
-    border-width: 1px;
-    letter-spacing: 0.5px;
-
-    background-color: $background-dark;
-    color: $font-light;
-    border: none;
+    height: 40px;
     &:hover {
       background-color: rgba(107, 127, 215);
       cursor: pointer;
     }
+    @include tablet {
+      width: 100%;
+    }
+    @include desktop {
+      width: 50%;
+    }
   }
 
   &__sort-button {
-    @include button($background-dark, $font-light);
+    @include small-button-dark-bg;
     padding: 0.25rem;
+    width: fit-content;
   }
 
   &__time {
@@ -57,17 +88,10 @@
   }
 
   &__list-item {
-    display: flex;
+    @include magnet-box-light-dynamic;
+    font-size: 1rem;
     align-items: baseline;
 
-    list-style: none;
-    padding: 1rem;
-    border-radius: 12px;
-    border: 1px solid #969695;
-
-    &:hover {
-      border: 2px solid $logo-pink;
-    }
     &:hover .recipes__time {
       display: inline;
       color: $logo-green;
@@ -84,6 +108,18 @@
     width: 100%;
   }
 
+  &__organising {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    @include desktop {
+      flex-direction: row;
+      width: 100%;
+      justify-content: space-between;
+    }
+  }
+
   &__filter {
     display: flex;
     flex-wrap: wrap;
@@ -92,17 +128,17 @@
   }
 
   &__filter-button {
-    @include button($background-dark, $font-light);
+    @include small-button-dark-bg;
   }
 }
 
 .app--dark {
   .recipes__sort-button {
-    @include button($background-light, $font-dark);
+    @include small-button-light-bg;
   }
 
   .recipes__filter-button {
-    @include button($background-light, $font-dark);
+    @include small-button-light-bg;
   }
 
   .recipes__saved {
@@ -110,12 +146,11 @@
   }
 
   .recipes__list-item {
-    color: $font-light;
+    @include magnet-box-dark-dynamic;
   }
 
   .recipes__new {
-    background-color: $background-light;
-    color: $font-dark;
+    @include large-button-light-bg;
     &:hover {
       background-color: rgba(107, 127, 215);
       cursor: pointer;
